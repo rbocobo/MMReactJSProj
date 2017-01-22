@@ -1,0 +1,53 @@
+{
+  "name": "KanbanBoard",
+  "version": "1.0.0",
+  "description": "Kanban Board Web App",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server -d --progress --colors --display-error-details",
+    "build": "npm run env NODE_ENV=production&&webpack -p --progress --colors --display-error-details",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rbocobo/MMReactJSProj.git"
+  },
+  "author": "Rod T. Bocobo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rbocobo/MMReactJSProj/issues"
+  },
+  "homepage": "https://github.com/rbocobo/MMReactJSProj#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "css": "^2.2.1",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-combine-loaders": "^2.0.3",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "flux": "^3.1.2",
+    "jquery": "^3.1.1",
+    "lodash": "^4.17.4",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
+    "react-dom": "^15.4.2"
+  },
+  "babel": {
+    "presets": [
+      "react",
+      "es2015"
+    ]
+  },
+  "keywords": []
+}
