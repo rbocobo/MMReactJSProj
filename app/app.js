@@ -2,7 +2,9 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-//var Bootstrap = require("!style!css!bootstrap/dist/css/bootstrap.css");
+var Bootstrap = require("!style!css!bootstrap/dist/css/bootstrap.css");
+import Header from "./components/header";
+import Content from "./components/content";
 
 var KanbanApplication = React.createClass({
     render: function(){
@@ -11,18 +13,17 @@ var KanbanApplication = React.createClass({
         var message = 
         'Hello World! React has been successfully running for ' + seconds + ' seconds.';
 
-        return <div className="panel panel-default">
-                ROD
-                
+        return <div>
+                <Header/>
+                <Content/>
                 </div>
     }
 });
 
-var start = new Date().getTime();
 
-setInterval(function(){
-    ReactDOM.render(
-        <KanbanApplication elapsed={new Date().getTime() - start }/>,
-        document.getElementById('root')
-    );
-}, 50);
+
+
+ReactDOM.render(
+    <KanbanApplication/>,
+    document.getElementById('root')
+);
