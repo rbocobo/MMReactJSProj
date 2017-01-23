@@ -4,7 +4,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Bootstrap = require("!style!css!bootstrap/dist/css/bootstrap.css");
 import Header from "./components/header";
+import Footer from "./components/footer";
 import Content from "./components/content";
+import Styles from "./css/app.css";
 
 var KanbanApplication = React.createClass({
     render: function(){
@@ -14,8 +16,11 @@ var KanbanApplication = React.createClass({
         'Hello World! React has been successfully running for ' + seconds + ' seconds.';
 
         return <div>
-                <Header/>
-                <Content/>
+                    <div className={Styles.wrap}>
+                        <Header/>
+                        <Content/>
+                    </div>
+                    <Footer/>
                 </div>
     }
 });

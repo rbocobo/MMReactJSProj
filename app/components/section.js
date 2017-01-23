@@ -1,15 +1,15 @@
 import React,  {Component} from 'react';
-import Jumbotron from 'react-bootstrap/lib/JumboTron';
+import Panel from 'react-bootstrap/lib/Panel';
 
 export default class Section extends Component{
     render(){
         return(
             <div className="container">
-                <Jumbotron>
+                <Panel>
                     <h1>SECTION</h1>
                 
                     
-                </Jumbotron>
+                </Panel>
             </div>
         );
     }

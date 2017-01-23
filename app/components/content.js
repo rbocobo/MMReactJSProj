@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Panel from 'react-bootstrap/lib/Panel';
 import Hero from './hero';
 import Section from './section';
+import CardList from './cardlist';
 
 export default class Content extends Component{
     render(){
@@ -17,11 +18,14 @@ export default class Content extends Component{
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={2}/>
-                        <Col md={8}>
+                        <Col mdOffset={2} md={8}>
                             <Section/>
                         </Col>
-                        <Col md={2}/>
+                    </Row>
+                    <Row>
+                        <Col mdOffset={2} md={8}>
+                        <CardList/>
+                        </Col>
                     </Row>
                 </Grid>
             
