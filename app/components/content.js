@@ -13,11 +13,11 @@ export default class Content extends Component{
             },
             {
                 title: "Card 2",
-                content: "Content1"
+                content: "Content2"
             },
             {
                 title: "Card 3",
-                content: "Content1"
+                content: "Content3"
             },
         ];
         return(
