@@ -1,5 +1,5 @@
 import React,  {Component} from 'react';
-import Jumbotron from 'react-bootstrap/lib/JumboTron';
+import {Jumbotron} from 'react-bootstrap';
 
 export default class Hero extends Component{
     render(){

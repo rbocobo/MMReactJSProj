@@ -1,8 +1,5 @@
 import React,  {Component} from 'react';
-import Grid from 'react-bootstrap/lib/Grid';
-import Col from 'react-bootstrap/lib/Col';
-import Row from 'react-bootstrap/lib/Row';
-import Panel from 'react-bootstrap/lib/Panel';
+import {Grid, Col, Row, Panel} from 'react-bootstrap';
 import Hero from './hero';
 import Section from './section';
 import CardList from './cardlist';

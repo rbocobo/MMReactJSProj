@@ -1,5 +1,5 @@
 import React,  {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel';
+import {Panel} from 'react-bootstrap';
 
 export default class Section extends Component{
     render(){
