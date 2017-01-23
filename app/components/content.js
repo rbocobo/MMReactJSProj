@@ -9,6 +9,20 @@ import CardList from './cardlist';
 
 export default class Content extends Component{
     render(){
+        var cardData = [
+            {
+                title: "Card 1",
+                content: "Content1"
+            },
+            {
+                title: "Card 2",
+                content: "Content1"
+            },
+            {
+                title: "Card 3",
+                content: "Content1"
+            },
+        ];
         return(
       
                 <Grid fluid>
@@ -24,7 +38,7 @@ export default class Content extends Component{
                     </Row>
                     <Row>
                         <Col mdOffset={2} md={8}>
-                        <CardList/>
+                        <CardList data={cardData}/>
                         </Col>
                     </Row>
                 </Grid>

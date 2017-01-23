@@ -10,10 +10,10 @@ import Styles from "./css/app.css";
 
 var KanbanApplication = React.createClass({
     render: function(){
-        var elapsed = Math.round(this.props.elapsed / 100);
-        var seconds = elapsed / 10 + (elapsed % 10 ? '' : '.0');
-        var message = 
-        'Hello World! React has been successfully running for ' + seconds + ' seconds.';
+        //var elapsed = Math.round(this.props.elapsed / 100);
+        //var seconds = elapsed / 10 + (elapsed % 10 ? '' : '.0');
+        //var message =
+        //    'Hello World! React has been successfully running for ' + seconds + ' seconds.';
 
         return <div>
                     <div className={Styles.wrap}>

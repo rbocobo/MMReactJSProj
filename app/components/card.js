@@ -6,8 +6,8 @@ export default class Card extends React.Component{
     render(){
         return(
             <Col md={4}>
-                <Panel header="Cards">
-                Card content
+                <Panel header={this.props.title}>
+                {this.props.content}
                 </Panel>
             </Col>
         );

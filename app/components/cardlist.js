@@ -7,9 +7,11 @@ export default class CardList extends React.Component{
         return(
             <div className="container">
                 <ListGroup bsClass="list-group-horizontal">
-                    <Card/>
-                    <Card/>
-                    <Card/>
+                    {
+                        this.props.data.map((item)=>{
+                        return(<Card key={item.title} title={item.title} content={item.content}/>);
+                        })
+                    }
                 </ListGroup>
             </div>
         );
