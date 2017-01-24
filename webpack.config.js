@@ -43,7 +43,8 @@ const config = {
         contentBase:"./public",
         colors: true,
         historyApiFallback: true,
-        inline: true
+        inline: true,
+        port: 8000
     },
 }
 if(process.env.NODE_ENV === 'production'){
