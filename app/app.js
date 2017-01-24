@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from'react-dom';
-import Bootstrap from '!style!css!bootswatch/darkly/bootstrap.css';
+import Bootstrap from 'bootswatch/darkly/bootstrap.css';
 import Layout from "./components/layout";
 import Header from "./components/header";
 import Footer from "./components/footer";

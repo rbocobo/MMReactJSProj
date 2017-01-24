@@ -31,13 +31,7 @@ const config = {
             test: /\.css$/, // Only .css files
             loader: ExtractTextPlugin.extract(
                 'style-loader',
-                combineLoaders([{
-                    loader: 'css-loader',
-                    query: {
-                    modules: true,
-                    localIdentName: '[name]__[local]___[hash:base64:5]'
-                    }
-                }])
+                'css-loader'
                 )
         },
         ]
