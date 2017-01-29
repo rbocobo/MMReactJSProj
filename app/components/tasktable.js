@@ -1,34 +1,14 @@
 import React from "react";
 import {Panel, Table} from "react-bootstrap";
 import TaskTableRow from "./tasktablerow";
+import json from "!json!../json/task.json";
 
 export default class TaskTable extends React.Component{
   constructor(props){
     super(props);
+    console.log(json);
     this.state = {
-      tableData:[
-      {
-        id: 1,
-        TaskName:"Watch TV ",
-        TaskDescription:"Australian Open 2017",
-        Priority:"Medium",
-        Status:"In Progress"
-      },
-      {
-        id: 2,
-        TaskName:"Finish Assignment",
-        TaskDescription:"Magenic Masters Assignment 2",
-        Priority:"Medium",
-        Status:"In Progress"
-      },
-      {
-        id: 3,
-        TaskName:"Cook Dinner",
-        TaskDescription:"Roast Chicken",
-        Priority:"High",
-        Status:"Done"
-      }
-    ]
+      tableData:json
     };
   }
 
