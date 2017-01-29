@@ -1,6 +1,7 @@
 import React from 'react';
 import {Nav,NavItem,NavDropdown,MenuItem,Navbar} from 'react-bootstrap';
 import Style from "../css/app.css";
+import LinkContainer from 'react-router-bootstrap';
 
 export default class Header extends React.Component{
   constructor(props){
@@ -12,7 +13,7 @@ export default class Header extends React.Component{
   getInitialState(){
     return {activeKey: 1};
   }
-  onSelect(selectedKey){
+  handleSelect(selectedKey){
     console.log(selectedKey);
     this.setState({activeKey: selectedKey});
   }
@@ -26,9 +27,9 @@ export default class Header extends React.Component{
                 <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                <Nav activeKey={this.state.activeKey}>
-                    <NavItem eventKey={1} href="#/"  onClick={this.onSelect.bind(1)}>Kanban</NavItem>
-                    <NavItem eventKey={2} href="#/tasktable" onClick={this.onSelect.bind(2)}>Tasks</NavItem>
+                <Nav>
+                    <NavItem eventKey={1} href="#/" >Kanban</NavItem>
+                    <NavItem eventKey={2} href="#/tasktable">Tasks</NavItem>
                     <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                     <MenuItem eventKey={3.1}>Action</MenuItem>
                     <MenuItem eventKey={3.2}>Another action</MenuItem>

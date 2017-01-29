@@ -14,9 +14,9 @@ export default class App extends React.Component{
         return( <div>
                     <Layout>
                         <Header/>
-                        <div className="container">
+
                         {this.props.children}
-                        </div>
+
                         <Footer/>
                     </Layout>
 
