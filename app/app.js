@@ -2,22 +2,24 @@
 
 import React from 'react';
 import ReactDOM from'react-dom';
-import Bootstrap from 'bootswatch/darkly/bootstrap.css';
+import Bootstrap from 'bootswatch/spacelab/bootstrap.css';
 import Layout from "./components/layout";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import Content from "./components/content";
+//import Content from "./components/content";
 import Styles from "./css/app.css";
 
-export default class KanbanApplication extends React.Component{
+export default class App extends React.Component{
     render(){
         return( <div>
                     <Layout>
                         <Header/>
-                        <Content/>
+                        <div className="container">
+                        {this.props.children}
+                        </div>
                         <Footer/>
                     </Layout>
-                    
+
                 </div>
         );
     }
@@ -26,7 +28,7 @@ export default class KanbanApplication extends React.Component{
 
 
 
-ReactDOM.render(
-    <KanbanApplication/>,
-    document.getElementById('root')
-);
+//ReactDOM.render(
+//    <App/>,
+//    document.getElementById('root')
+//);
