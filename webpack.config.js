@@ -3,7 +3,7 @@ const combineLoaders = require('webpack-combine-loaders');
 const  ExtractTextPlugin = require("extract-text-webpack-plugin");
 const config = {
     devtool: 'inline-source-map',
-    entry: __dirname + '/app/app.js',
+    entry: __dirname + '/app/client.js',
     output:{
         path: "./public/",
         publicPath: "",
@@ -18,13 +18,13 @@ const config = {
                 presets:["es2015","react"]
                 }
         },
-        
-        { 
-            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-            loader: "url-loader?limit=10000&minetype=application/font-woff" 
+
+        {
+            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: "url-loader?limit=10000&minetype=application/font-woff"
         },
-        { 
-            test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+        {
+            test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: "file-loader" ,
         },
         {

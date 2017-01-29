@@ -1,0 +1,20 @@
+[
+  {
+    TaskName:"Watch TV ",
+    TaskDescription:"Australian Open 2017",
+    Priority:"Medium",
+    Status:"In Progress"
+  },
+  {
+    TaskName:"Finish Assignment",
+    TaskDescription:"Magenic Masters Assignment 2",
+    Priority:"Medium",
+    Status:"In Progress"
+  },
+  {
+    TaskName:"Cook Dinner",
+    TaskDescription:"Roast Chicken",
+    Priority:"High",
+    Status:"Done"
+  }
+]
