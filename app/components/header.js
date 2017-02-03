@@ -14,8 +14,8 @@ export default class Header extends React.Component{
     return {activeKey: 1};
   }
   handleSelect(selectedKey){
-    console.log(selectedKey);
-    this.setState({activeKey: selectedKey});
+    //console.log(selectedKey);
+    //this.setState({activeKey: selectedKey});
   }
   render(){
     return(
@@ -27,7 +27,7 @@ export default class Header extends React.Component{
                 <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                <Nav>
+                <Nav activeKey={this.state.activeKey}>
                     <NavItem eventKey={1} href="#/" >Kanban</NavItem>
                     <NavItem eventKey={2} href="#/tasktable">Tasks</NavItem>
                     <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
