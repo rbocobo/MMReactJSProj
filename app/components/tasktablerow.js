@@ -17,7 +17,7 @@ export default class TaskTableRow extends React.Component {
             oldState: {}
 
         };
-        //console.log(this.state);
+        console.log(this.state);
     }
 
     Edit(){
