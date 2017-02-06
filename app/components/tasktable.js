@@ -1,5 +1,5 @@
 import React from "react";
-import {Panel, Table} from "react-bootstrap";
+import { Panel, Table, Button} from "react-bootstrap";
 import TaskTableRow from "./tasktablerow";
 import json from "!json!../json/task.json";
 
@@ -10,6 +10,7 @@ export default class TaskTable extends React.Component{
     this.state = {
       tableData:json
     };
+
   }
 
   render(){
@@ -35,6 +36,7 @@ export default class TaskTable extends React.Component{
           </tbody>
         </Table>
       </Panel>
+      <Button>Add New</Button>
     </div>
     );
   }

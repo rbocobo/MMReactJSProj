@@ -47,9 +47,11 @@ body > div > div{
   float:left;
   text-align: center;
   width: 100%;
+  border:0;
+  height:100%;
+  vertical-align: middle;
 }
 
-
-
-
-    
+.center{
+  text-align: center;
+}

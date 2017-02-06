@@ -20,13 +20,21 @@ const config = {
         },
 
         {
-            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: "url-loader?limit=10000&minetype=application/font-woff"
-        },
-        {
-            test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: "file-loader" ,
-        },
+      test: /\.eot/,
+      loader: 'url-loader?mimetype=application/vnd.ms-fontobject'
+      }, {
+        test: /\.ttf/,
+        loader: 'url-loader?mimetype=application/x-font-ttf'
+      }, {
+        test: /\.woff/,
+        loader: 'url-loader?mimetype=application/font-woff'
+      }, {
+        test: /\.woff2/,
+        loader: 'url-loader?mimetype=application/font-woff2'
+      },{
+        test: /\.svg/,
+        loader: 'url-loader?mimetype=image/svg+xml'
+      },
         {
             test: /\.css$/, // Only .css files
             loader: ExtractTextPlugin.extract(
@@ -48,7 +56,7 @@ const config = {
         colors: true,
         historyApiFallback: true,
         inline: true,
-        port: 8000
+        port: 8001
     },
 }
 if(process.env.NODE_ENV === 'production'){

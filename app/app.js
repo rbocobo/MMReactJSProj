@@ -8,6 +8,7 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 //import Content from "./components/content";
 import Styles from "./css/app.css";
+import SelectStyles from "react-select/dist/react-select.css";
 
 export default class App extends React.Component{
     render(){
