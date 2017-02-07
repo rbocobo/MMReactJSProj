@@ -6,81 +6,6 @@ import AddTaskModal from "./addtaskmodal";
 import _ from "lodash";
 import Pager from "./pager";
 import Sorter from "./sorter";
-const defaultData = [{
-  "id":1,
-	"TaskName": "1 Watch Cable TV",
-	"TaskDescription": "Australian Open 2017",
-	"Priority": "Medium",
-	"Status": "In Progress"
-}, {
-  "id":2,
-	"TaskName": "2 Finish Assignment ",
-	"TaskDescription": "Magenic Masters Assignment 2",
-	"Priority": "Medium",
-	"Status": "In Progress"
-}, {
-  "id":3,
-	"TaskName": "3 Itaque earum rerum hic tenetur a sapiente delectus ",
-	"TaskDescription": "nisi ut aliquid ex ea commodi consequatur",
-	"Priority": "High",
-	"Status": "In Progress"
-}
-, {
-  "id":4,
-	"TaskName": "4 Temporibus autem quibusdam et aut officiis ",
-	"TaskDescription": "Neque porro quisquam est",
-	"Priority": "Low",
-	"Status": "Done"
-}
-, {
-  "id":5,
-	"TaskName": "5 Quis autem vel eum iure reprehenderit ",
-	"TaskDescription": "vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
-	"Priority": "High",
-	"Status": "Done"
-}
-, {
-  "id":6,
-	"TaskName": "6 Et harum quidem rerum facilis est et expedita distinctio ",
-	"TaskDescription": "Nam libero tempore",
-	"Priority": "Low",
-	"Status": "Done"
-}
-, {
-  "id":7,
-	"TaskName": "7 de Finibus Bonorum et Malorum",
-	"TaskDescription": "At vero eos et accusamus et iusto",
-	"Priority": "High",
-	"Status": "In Progress"
-}
-, {
-  "id":8,
-	"TaskName": "8 Sed ut perspiciatis unde omnis iste natus error sit voluptatem ",
-	"TaskDescription": "accusantium doloremque laudantium",
-	"Priority": "Medium",
-	"Status": "To do"
-}
-, {
-  "id":9,
-	"TaskName": "9 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-	"TaskDescription": "Ut enim ad minim veniam",
-	"Priority": "High",
-	"Status": "Done"
-}
-, {
-  "id":10,
-	"TaskName": "10 Lorem ipsum dolor sit amet ",
-	"TaskDescription": "consectetur adipiscing elit",
-	"Priority": "High",
-	"Status": "To do"
-}, {
-  "id":11,
-	"TaskName": "11 Task 11 ",
-	"TaskDescription": "consectetur adipiscing elit",
-	"Priority": "High",
-	"Status": "To do"
-}
-];
 
 export default class TaskTable extends React.Component{
   constructor(props){
@@ -109,8 +34,7 @@ export default class TaskTable extends React.Component{
   }
 
   handleSaveTask(e){
-    let id = this.state.tableData.length + 1;
-    e.id = id;//this.state.tableData.length++;
+    let id = _.random(_.now());
     let data = this.state.tableData;
     data.push(e); //_.concat(this.state.tableData, e);
     console.log("Added Task");

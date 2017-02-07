@@ -5,7 +5,7 @@ export default class Pager extends Component{
     
     constructor(props){
         super(props);
-
+        console.log(_.now());
         let numberOfPage = this.props.rowCount / this.props.itemsPerPage;
         numberOfPage = Math.ceil(numberOfPage); 
 
