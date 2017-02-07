@@ -15,7 +15,7 @@ export default class AddTaskModal extends Component {
       }
     }
 
-  save(){
+  handleSaveClicked(){
 
 
     var task = {
@@ -32,14 +32,10 @@ export default class AddTaskModal extends Component {
     this.setState({show: false});
   }
 
-  cancel(){
+  handleCancelClicked(){
     this.setState({show: false});
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log("componentWillReceiveProps");
-    this.setState({ show:nextProps.show })
-  }
   handleChange(key, e){
 
       var state = {};
@@ -47,6 +43,7 @@ export default class AddTaskModal extends Component {
       this.setState(state);
       console.log(this.state);
   }
+
   handleSelected(val){
 
       let state = {};
@@ -54,6 +51,12 @@ export default class AddTaskModal extends Component {
       this.setState(state)
       console.log(this.state);
   }
+
+  componentWillReceiveProps(nextProps){
+    console.log("componentWillReceiveProps");
+    this.setState({ show:nextProps.show })
+  }
+
   render(){
     function FieldGroup({ id, label, help }) {
       return (
@@ -90,8 +93,8 @@ export default class AddTaskModal extends Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="success" onClick={()=>this.save()}>Save</Button>
-            <Button bsStyle="danger" onClick={()=> this.cancel()}>Cancel</Button>
+            <Button bsStyle="success" onClick={()=>this.handleSaveClicked()}>Save</Button>
+            <Button bsStyle="danger" onClick={()=> this.handleCancelClicked()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
     );

@@ -26,6 +26,9 @@ export default class ActionButton extends Component{
     });
     this.props.SaveClicked();
   }
+  handleDeleteClick(){
+    this.props.DeleteClicked();
+  }
   render(){
     if(this.state.isEdit){
       return(
@@ -39,7 +42,7 @@ export default class ActionButton extends Component{
       return(
         <ButtonGroup>
           <Button bsStyle="primary" onClick={this.handleEditClick.bind(this)}><Glyphicon glyph="pencil"/></Button>
-          <Button bsStyle="danger"><Glyphicon glyph="trash"/></Button>
+          <Button bsStyle="danger" onClick={()=>this.handleDeleteClick()}><Glyphicon glyph="trash"/></Button>
         </ButtonGroup>
       )
     }
@@ -49,5 +52,6 @@ export default class ActionButton extends Component{
 ActionButton.propTypes = {
   EditClicked : React.PropTypes.func.isRequired,
   CancelClicked : React.PropTypes.func.isRequired,
-  SaveClicked : React.PropTypes.func.isRequired
+  SaveClicked : React.PropTypes.func.isRequired,
+  DeleteClicked: React.PropTypes.func.isRequired
 };

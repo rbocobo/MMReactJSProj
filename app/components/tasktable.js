@@ -3,12 +3,14 @@ import { Panel, Table, Button} from "react-bootstrap";
 import TaskTableRow from "./tasktablerow";
 import json from "!json!../json/task.json";
 import AddTaskModal from "./addtaskmodal";
+import _ from "lodash";
+import Pager from "./pager";
 
 export default class TaskTable extends React.Component{
   constructor(props){
     super(props);
     console.log(json);
-
+    
     this.state = {
       tableData:json,
       showModal: false
@@ -23,8 +25,28 @@ export default class TaskTable extends React.Component{
 
   handleSaveTask(e){
     json.push(e);
-    this.setState({tableData:json});
+    this.setState({tableData:json, showModal: false});
     console.log(this.state.tableData);
+  }
+
+
+  handleUpdateRow(val){
+    console.log("handleUpdateRow");
+    console.log(val);
+    var data = json.map(item => {
+      if(item.id == val.id){
+        return val;
+      }else{
+        return item;
+      }
+    });
+    this.setState({tableData:data});
+  }
+
+  handleDeleteRow(id){
+    var data = _.filter(this.state.tableData, item => { return item.id != id })
+    console.log(data);
+    this.setState({tableData:data});
   }
 
   render(){
@@ -44,10 +66,17 @@ export default class TaskTable extends React.Component{
           <tbody>
             {this.state.tableData.map((item)=>{
               return (
-                <TaskTableRow key={item.id} data={item}/>
+                <TaskTableRow key={item.id} data={item} updateRow={this.handleUpdateRow} deleteRow={val=>this.handleDeleteRow(val)}/>
               )
               })}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan={4}>
+              <Pager page={1} itemsPerPage={5} rowCount={10}/>
+              </td>
+            </tr>
+          </tfoot>
         </Table>
       </Panel>
       <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>

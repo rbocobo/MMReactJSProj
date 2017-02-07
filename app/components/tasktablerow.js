@@ -20,7 +20,7 @@ export default class TaskTableRow extends React.Component {
         console.log(this.state);
     }
 
-    Edit(){
+    handleEdit(){
       let oldState = {
         id : this.state.id,
         taskName : this.state.taskName,
@@ -34,17 +34,29 @@ export default class TaskTableRow extends React.Component {
       console.log("Edit");
     }
 
-    Save(){
+    handleSave(){
       this.setState({isEdit:false});
+      let state = {
+        id : this.state.id,
+        taskName : this.state.taskName,
+        taskDescription : this.state.taskDescription,
+        priority : this.state.priority,
+        status : this.state.status,
+      };
+      this.props.updateRow(state);
       console.log("Save");
     }
 
-    Cancel(){
+    handleCancel(){
       this.setState({isEdit:false});
       var oldState = this.state.oldState;
       this.setState(oldState);
       console.log(this.state.oldState);
       console.log("Cancel");
+    }
+
+    handleDelete(){
+      this.props.deleteRow(this.state.id);
     }
 
     handleChange(key, e){
@@ -106,7 +118,12 @@ export default class TaskTableRow extends React.Component {
                   onChange={e=> this.handleSelectChange("status",e)}
                    />
                 </td>
-                <td className="centerText"><ActionButton SaveClicked={()=>this.Save()} EditClicked={()=> this.Edit()} CancelClicked={()=> this.Cancel()}/></td>
+                <td className="centerText"><ActionButton 
+                  SaveClicked={()=>this.handleSave()} 
+                  EditClicked={()=> this.handleEdit()} 
+                  CancelClicked={()=> this.handleCancel()}
+                  DeleteClicked={()=> this.handleDelete()} 
+                  /></td>
                 </tr>
                 );
             }
@@ -119,7 +136,12 @@ export default class TaskTableRow extends React.Component {
                 </td>
                 <td>{this.state.priority}</td>
                 <td>{this.state.status}</td>
-                <td className="centerText"><ActionButton SaveClicked={()=>this.Save()} EditClicked={()=>this.Edit()} CancelClicked={()=> this.Cancel()}/></td>
+                <td className="centerText"><ActionButton 
+                  SaveClicked={()=>this.handleSave()} 
+                  EditClicked={()=>this.handleEdit()} 
+                  CancelClicked={()=> this.handleCancel()}
+                  DeleteClicked={()=> this.handleDelete()}  
+                  /></td>
                 </tr>
                 );
             }
@@ -129,5 +151,6 @@ export default class TaskTableRow extends React.Component {
 
 TaskTableRow.propTypes = {
   data: React.PropTypes.object.isRequired,
-  updateRow: React.PropTypes.func.isRequired
+  updateRow: React.PropTypes.func.isRequired,
+  deleteRow: React.PropTypes.func.isRequired
 }
