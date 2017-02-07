@@ -19,7 +19,7 @@ export default class AddTaskModal extends Component {
 
 
     var task = {
-      id:5,
+      id:-1,
       TaskName:this.state.taskName,
       TaskDescription:this.state.taskDescription,
       Priority:this.state.priority,

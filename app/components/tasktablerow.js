@@ -23,10 +23,10 @@ export default class TaskTableRow extends React.Component {
     handleEdit(){
       let oldState = {
         id : this.state.id,
-        taskName : this.state.taskName,
-        taskDescription : this.state.taskDescription,
-        priority : this.state.priority,
-        status : this.state.status,
+        TaskName : this.state.taskName,
+        TaskDescription : this.state.taskDescription,
+        Priority : this.state.priority,
+        Status : this.state.status,
       };
 
       this.setState({isEdit:true, oldState: oldState});
@@ -38,10 +38,10 @@ export default class TaskTableRow extends React.Component {
       this.setState({isEdit:false});
       let state = {
         id : this.state.id,
-        taskName : this.state.taskName,
-        taskDescription : this.state.taskDescription,
-        priority : this.state.priority,
-        status : this.state.status,
+        TaskName : this.state.taskName,
+        TaskDescription : this.state.taskDescription,
+        Priority : this.state.priority,
+        Status : this.state.status,
       };
       this.props.updateRow(state);
       console.log("Save");
