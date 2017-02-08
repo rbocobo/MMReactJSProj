@@ -44,6 +44,7 @@ export default class Pager extends Component{
         return(
             <div>
                 <table>
+                    <tbody>
                     <tr>
                         <td>
                             <FormControl componentClass="select" placeholder="select" style={{width: "100px"}} onChange={this.handleSelect.bind(this)}>
@@ -64,6 +65,7 @@ export default class Pager extends Component{
                             </ButtonToolbar>
                         </td>
                     </tr>
+                    </tbody>
                 </table>
                 
             </div>

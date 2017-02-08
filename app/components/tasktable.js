@@ -105,6 +105,7 @@ export default class TaskTable extends React.Component{
     return(
       <div className="container">
         <Panel header="Task Master List" bsStyle="info">
+          <div style={{height:"500px", overflow: "scroll"}}>
           <Table striped bordered condensed hover responsive>
           <thead>
             <tr>
@@ -121,19 +122,16 @@ export default class TaskTable extends React.Component{
               )
               })}
           </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan={4}>
-              <Pager page={this.state.page} 
+          
+        </Table>
+       
+        </div>
+         <Pager page={this.state.page} 
               itemsPerPage={this.state.numOfItems} 
               rowCount={this.state.rowCount} 
               pageChanged={(page)=>this.handlePageChanged(page)}
               itemsPerPageChanged={this.handleItemsPerPageChanged.bind(this)}
               />
-              </td>
-            </tr>
-          </tfoot>
-        </Table>
       </Panel>
       <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>
       <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)}/>
