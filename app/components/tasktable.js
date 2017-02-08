@@ -13,7 +13,7 @@ export default class TaskTable extends React.Component{
 
 
     let skipCount = 0;
-    let takeCount = 5;
+    let takeCount = 10;
     let tableData = _.filter(json,i=>{ return true; });
     let pagedData = _.take(_.drop(tableData, skipCount), takeCount);
     this.state = {
@@ -21,7 +21,8 @@ export default class TaskTable extends React.Component{
       showModal: false,
       rowCount: tableData.length,
       page: 1,
-      pagedData: pagedData
+      pagedData: pagedData,
+      numOfItems: 10
     };
 
 
@@ -47,8 +48,8 @@ export default class TaskTable extends React.Component{
   setPagedData(page,tabledata){
     console.log("Page: " + page);
     console.log(this.state.tableData);
-    let skipCount = page == 1 ? 0 : (page - 1) * 5;
-    let takeCount = 5;
+    let skipCount = page == 1 ? 0 : (page - 1) * this.state.numOfItems;
+    let takeCount = this.state.numOfItems;
     let pagedData = _.take(_.drop(tabledata, skipCount), takeCount);
     console.log("New Paged Data");
     console.log(pagedData);
@@ -93,6 +94,12 @@ export default class TaskTable extends React.Component{
       this.setPagedData(this.state.page, data);
     })
   }
+  handleItemsPerPageChanged(numOfItems){
+    this.setState({numOfItems:numOfItems},()=>{
+      this.setPagedData(this.state.page, this.state.tableData);
+    });
+    
+  }
   render(){
 
     return(
@@ -117,7 +124,12 @@ export default class TaskTable extends React.Component{
           <tfoot>
             <tr>
               <td colSpan={4}>
-              <Pager page={this.state.page} itemsPerPage={5} rowCount={this.state.rowCount} pageChanged={(page)=>this.handlePageChanged(page)}/>
+              <Pager page={this.state.page} 
+              itemsPerPage={this.state.numOfItems} 
+              rowCount={this.state.rowCount} 
+              pageChanged={(page)=>this.handlePageChanged(page)}
+              itemsPerPageChanged={this.handleItemsPerPageChanged.bind(this)}
+              />
               </td>
             </tr>
           </tfoot>
