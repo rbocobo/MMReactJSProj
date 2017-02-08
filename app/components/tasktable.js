@@ -86,20 +86,71 @@ export default class TaskTable extends React.Component{
   handlePageChanged(page){
     this.setPagedData(page, this.state.tableData);
   }
+
   handleSort(arg){
-    var data = _.orderBy(this.state.tableData,[arg.field],[arg.direction]);
-    console.log("SORT");
-    console.log(data);
+    let data = [];
+
+    switch(arg.field){
+      case "TaskName":
+      data = _.orderBy(this.state.tableData,[arg.field],[arg.direction]);
+      break;
+
+      case "Priority":
+
+       data = _.sortBy(this.state.tableData, (e)=>{
+          const rankAsc = {
+            "Low" : 1,
+            "Medium" : 2,
+            "High" : 3 
+          };
+          const rankDesc = {
+            "High" : 1,
+            "Medium" : 2,
+            "Low" : 3
+          }
+          if(arg.direction == "asc")
+          return rankAsc[e.Priority];
+          else
+          return rankDesc[e.Priority]
+        })
+      
+      break;
+
+      case "Status":
+
+       data = _.sortBy(this.state.tableData, (e)=>{
+          const rankAsc = {
+            "To Do" : 1,
+            "In Progress" : 2,
+            "Done" : 3 
+          };
+          const rankDesc = {
+            "Done" : 1,
+            "In Progress" : 2,
+            "To Do" : 3
+          }
+          if(arg.direction == "asc")
+          return rankAsc[e.Status];
+          else
+          return rankDesc[e.Status]
+        })
+      
+      break;
+    }
+    
+    
     this.setState({tabledata:data, rowCount: data.length},()=>{
       this.setPagedData(this.state.page, data);
     })
   }
+
   handleItemsPerPageChanged(numOfItems){
     this.setState({numOfItems:numOfItems},()=>{
       this.setPagedData(this.state.page, this.state.tableData);
     });
     
   }
+  
   render(){
 
     return(
