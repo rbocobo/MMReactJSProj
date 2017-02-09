@@ -6,7 +6,7 @@ import CardList from './cardlist';
 
 export default class Content extends Component{
     render(){
-        var cardData = [
+        let cardData = [
             {
                 title: "Card 1",
                 content: "Content1"

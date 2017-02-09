@@ -49,7 +49,7 @@ export default class TaskTableRow extends React.Component {
 
     handleCancel(){
       this.setState({isEdit:false});
-      var oldState = this.state.oldState;
+      let oldState = this.state.oldState;
       this.setState(oldState);
       console.log(this.state.oldState);
       console.log("Cancel");
@@ -61,7 +61,7 @@ export default class TaskTableRow extends React.Component {
 
     handleChange(key, e){
 
-        var state = {};
+        let state = {};
         state[key] = e.target.value;
         this.setState(state);
 
@@ -69,13 +69,13 @@ export default class TaskTableRow extends React.Component {
 
     handleSelectChange(key, val){
       console.log("Selected:" + val.value);
-      var state = {};
+      let state = {};
       state[key] = val.value;
       this.setState(state);
     }
 
     render(){
-            var priorityOptions = [
+            let priorityOptions = [
               {
                   label: "High",
                   value: "High"
@@ -90,7 +90,7 @@ export default class TaskTableRow extends React.Component {
               }
 
             ]
-            var statusOptions = [
+            let statusOptions = [
               {label: "To Do", value:"To Do"},
               {label: "In Progress", value:"In Progress"},
               {label: "Done", value:"Done"},

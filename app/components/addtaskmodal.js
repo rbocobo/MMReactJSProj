@@ -18,7 +18,7 @@ export default class AddTaskModal extends Component {
   handleSaveClicked(){
 
 
-    var task = {
+    let task = {
       id:-1,
       TaskName:this.state.taskName,
       TaskDescription:this.state.taskDescription,
@@ -38,7 +38,7 @@ export default class AddTaskModal extends Component {
 
   handleChange(key, e){
 
-      var state = {};
+      let state = {};
       state[key] = e.target.value;
       this.setState(state);
       console.log(this.state);

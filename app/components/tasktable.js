@@ -6,6 +6,7 @@ import AddTaskModal from "./addtaskmodal";
 import _ from "lodash";
 import Pager from "./pager";
 import Sorter from "./sorter";
+import ConfirmModal from "./confirmmodal";
 
 export default class TaskTable extends React.Component{
   constructor(props){
@@ -19,6 +20,8 @@ export default class TaskTable extends React.Component{
     this.state = {
       tableData:tableData,
       showModal: false,
+      showConfirmModal: false,
+      deleteId: 0,
       rowCount: tableData.length,
       page: 1,
       pagedData: pagedData,
@@ -60,7 +63,7 @@ export default class TaskTable extends React.Component{
   handleUpdateRow(val){
     console.log("handleUpdateRow");
     console.log(val);
-    var data = this.state.tableData.map(item => {
+    let data = this.state.tableData.map(item => {
       if(item.id == val.id){
         
         return val;
@@ -76,11 +79,18 @@ export default class TaskTable extends React.Component{
     
   }
 
-  handleDeleteRow(id){
-    let data = _.filter(this.state.tableData, item => { return item.id != id })
-    this.setPagedData(this.state.page, data);
+  handleConfirmDelete(){
+    let data = _.filter(this.state.tableData, item => { return item.id != this.state.deleteId })
+    this.setState({showConfirmModal:false, deleteId: 0},()=>{
+        this.setPagedData(this.state.page, data);
+    });
     console.log(data);
     console.log(this.state.tableData);
+  }
+
+  handleDeleteRow(id){
+    this.setState({showConfirmModal:true, deleteId: id});
+    
   }
 
   handlePageChanged(page){
@@ -186,6 +196,7 @@ export default class TaskTable extends React.Component{
       </Panel>
       <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>
       <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)}/>
+      <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} />
     </div>
     );
   }
