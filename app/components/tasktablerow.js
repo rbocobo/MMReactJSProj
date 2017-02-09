@@ -23,10 +23,10 @@ export default class TaskTableRow extends React.Component {
     handleEdit(){
       let oldState = {
         id : this.state.id,
-        TaskName : this.state.taskName,
-        TaskDescription : this.state.taskDescription,
-        Priority : this.state.priority,
-        Status : this.state.status,
+        taskName : this.state.taskName,
+        taskDescription : this.state.taskDescription,
+        priority : this.state.priority,
+        status : this.state.status,
       };
 
       this.setState({isEdit:true, oldState: oldState});
@@ -118,11 +118,11 @@ export default class TaskTableRow extends React.Component {
                   onChange={e=> this.handleSelectChange("status",e)}
                    />
                 </td>
-                <td className="centerText"><ActionButton 
-                  SaveClicked={()=>this.handleSave()} 
-                  EditClicked={()=> this.handleEdit()} 
+                <td className="centerText"><ActionButton
+                  SaveClicked={()=>this.handleSave()}
+                  EditClicked={()=> this.handleEdit()}
                   CancelClicked={()=> this.handleCancel()}
-                  DeleteClicked={()=> this.handleDelete()} 
+                  DeleteClicked={()=> this.handleDelete()}
                   /></td>
                 </tr>
                 );
@@ -136,11 +136,11 @@ export default class TaskTableRow extends React.Component {
                 </td>
                 <td>{this.state.priority}</td>
                 <td>{this.state.status}</td>
-                <td className="centerText"><ActionButton 
-                  SaveClicked={()=>this.handleSave()} 
-                  EditClicked={()=>this.handleEdit()} 
+                <td className="centerText"><ActionButton
+                  SaveClicked={()=>this.handleSave()}
+                  EditClicked={()=>this.handleEdit()}
                   CancelClicked={()=> this.handleCancel()}
-                  DeleteClicked={()=> this.handleDelete()}  
+                  DeleteClicked={()=> this.handleDelete()}
                   /></td>
                 </tr>
                 );

@@ -48,6 +48,11 @@ export default class TaskTable extends React.Component{
     this.setPagedData(this.state.page, data);
   }
 
+  handleCancelAddTask(){
+    console.log("handleCancelAddTask");
+    this.setState({showModal:false});
+  }
+
   setPagedData(page,tabledata){
     console.log("Page: " + page);
     console.log(this.state.tableData);
@@ -57,7 +62,7 @@ export default class TaskTable extends React.Component{
     console.log("New Paged Data");
     console.log(pagedData);
     this.setState({page:page,pagedData:pagedData,tableData:tabledata, rowCount: tabledata.length});
-    
+
   }
 
   handleUpdateRow(val){
@@ -65,7 +70,7 @@ export default class TaskTable extends React.Component{
     console.log(val);
     let data = this.state.tableData.map(item => {
       if(item.id == val.id){
-        
+
         return val;
       }else{
         return item;
@@ -76,7 +81,7 @@ export default class TaskTable extends React.Component{
       console.log(data);
       this.setPagedData(this.state.page, data);
     });
-    
+
   }
 
   handleConfirmDelete(){
@@ -90,7 +95,7 @@ export default class TaskTable extends React.Component{
 
   handleDeleteRow(id){
     this.setState({showConfirmModal:true, deleteId: id});
-    
+
   }
 
   handlePageChanged(page){
@@ -111,7 +116,7 @@ export default class TaskTable extends React.Component{
           const rankAsc = {
             "Low" : 1,
             "Medium" : 2,
-            "High" : 3 
+            "High" : 3
           };
           const rankDesc = {
             "High" : 1,
@@ -123,7 +128,7 @@ export default class TaskTable extends React.Component{
           else
           return rankDesc[e.Priority]
         })
-      
+
       break;
 
       case "Status":
@@ -132,7 +137,7 @@ export default class TaskTable extends React.Component{
           const rankAsc = {
             "To Do" : 1,
             "In Progress" : 2,
-            "Done" : 3 
+            "Done" : 3
           };
           const rankDesc = {
             "Done" : 1,
@@ -144,11 +149,11 @@ export default class TaskTable extends React.Component{
           else
           return rankDesc[e.Status]
         })
-      
+
       break;
     }
-    
-    
+
+
     this.setState({tabledata:data, rowCount: data.length},()=>{
       this.setPagedData(this.state.page, data);
     })
@@ -158,9 +163,9 @@ export default class TaskTable extends React.Component{
     this.setState({numOfItems:numOfItems},()=>{
       this.setPagedData(this.state.page, this.state.tableData);
     });
-    
+
   }
-  
+
   render(){
 
     return(
@@ -183,19 +188,19 @@ export default class TaskTable extends React.Component{
               )
               })}
           </tbody>
-          
+
         </Table>
-       
+
         </div>
-         <Pager page={this.state.page} 
-              itemsPerPage={this.state.numOfItems} 
-              rowCount={this.state.rowCount} 
+         <Pager page={this.state.page}
+              itemsPerPage={this.state.numOfItems}
+              rowCount={this.state.rowCount}
               pageChanged={(page)=>this.handlePageChanged(page)}
               itemsPerPageChanged={this.handleItemsPerPageChanged.bind(this)}
               />
       </Panel>
       <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>
-      <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)}/>
+      <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)} cancelAdd={this.handleCancelAddTask.bind(this)}/>
       <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} />
     </div>
     );
