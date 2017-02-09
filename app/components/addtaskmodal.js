@@ -16,8 +16,6 @@ export default class AddTaskModal extends Component {
     }
 
   handleSaveClicked(){
-
-
     let task = {
       id:-1,
       TaskName:this.state.taskName,
@@ -33,7 +31,8 @@ export default class AddTaskModal extends Component {
   }
 
   handleCancelClicked(){
-    this.setState({show: false});
+    this.props.cancelAdd();
+    //this.setState({show: false});
   }
 
   handleChange(key, e){
