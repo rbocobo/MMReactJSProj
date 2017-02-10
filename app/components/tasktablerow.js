@@ -10,26 +10,28 @@ export default class TaskTableRow extends React.Component {
         this.state = {
             isEdit : false,
             id : this.props.data.id,
-            taskName : this.props.data.TaskName,
-            taskDescription : this.props.data.TaskDescription,
-            priority : this.props.data.Priority,
-            status : this.props.data.Status,
-            oldState: {}
+            taskName : this.props.data.taskName,
+            taskDescription : this.props.data.taskDescription,
+            priority : this.props.data.priority,
+            status : this.props.data.status,
+            edittaskName: "",
+            edittaskDescription: "",
+            editpriority: "",
+            editstatus: ""
 
         };
         console.log(this.state);
     }
 
     handleEdit(){
-      let oldState = {
-        id : this.state.id,
-        taskName : this.state.taskName,
-        taskDescription : this.state.taskDescription,
-        priority : this.state.priority,
-        status : this.state.status,
-      };
 
-      this.setState({isEdit:true, oldState: oldState});
+      this.setState({
+        isEdit:true,
+        edittaskName: this.state.taskName,
+        edittaskDescription: this.state.taskDescription,
+        editpriority: this.state.priority,
+        editstatus: this.state.status
+      });
 
       console.log("Edit");
     }
@@ -38,10 +40,10 @@ export default class TaskTableRow extends React.Component {
       this.setState({isEdit:false});
       let state = {
         id : this.state.id,
-        TaskName : this.state.taskName,
-        TaskDescription : this.state.taskDescription,
-        Priority : this.state.priority,
-        Status : this.state.status,
+        taskName : this.state.edittaskName,
+        taskDescription : this.state.edittaskDescription,
+        priority : this.state.editpriority,
+        status : this.state.editstatus,
       };
       this.props.updateRow(state);
       console.log("Save");
@@ -74,6 +76,15 @@ export default class TaskTableRow extends React.Component {
       this.setState(state);
     }
 
+    componentWillReceiveProps(nextProps){
+      console.log("Updating Table Row");
+      this.setState({
+        taskName:nextProps.data.taskName,
+        taskDescription:nextProps.data.taskDescription,
+        priority:nextProps.data.priority,
+        status:nextProps.data.status
+      });
+    }
     render(){
             let priorityOptions = [
               {
@@ -99,23 +110,23 @@ export default class TaskTableRow extends React.Component {
                 return(
                 <tr key={this.state.id}>
                 <td>
-                <div><FormControl type="text" value={this.state.taskName} onChange={e=>this.handleChange("taskName", e)}/></div>
-                <div><small><FormControl type="text" value={this.state.taskDescription} onChange={e=>this.handleChange("taskDescription", e)}/></small></div>
+                <div><FormControl type="text" value={this.state.edittaskName} onChange={e=>this.handleChange("edittaskName", e)}/></div>
+                <div><small><FormControl type="text" value={this.state.edittaskDescription} onChange={e=>this.handleChange("edittaskDescription", e)}/></small></div>
                 </td>
                 <td>
                   <Select
                   name="priority"
-                  value={this.state.priority}
+                  value={this.state.editpriority}
                   options={priorityOptions}
-                  onChange={e=> this.handleSelectChange("priority",e)}
+                  onChange={e=> this.handleSelectChange("editpriority",e)}
                    />
                 </td>
                 <td>
                   <Select
                   name="status"
-                  value={this.state.status}
+                  value={this.state.editstatus}
                   options={statusOptions}
-                  onChange={e=> this.handleSelectChange("status",e)}
+                  onChange={e=> this.handleSelectChange("editstatus",e)}
                    />
                 </td>
                 <td className="centerText"><ActionButton
