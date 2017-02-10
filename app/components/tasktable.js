@@ -166,6 +166,10 @@ export default class TaskTable extends React.Component{
 
   }
 
+  handleCancelDelete(){
+    this.setState({showConfirmModal:false});
+  }
+
   render(){
 
     return(
@@ -201,7 +205,7 @@ export default class TaskTable extends React.Component{
       </Panel>
       <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>
       <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)} cancelAdd={this.handleCancelAddTask.bind(this)}/>
-      <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} />
+      <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} cancelDelete={this.handleCancelDelete.bind(this)} />
     </div>
     );
   }

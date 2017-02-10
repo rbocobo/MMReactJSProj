@@ -17,6 +17,7 @@ export default class ConfirmModal extends Component{
     }
 
     handleCancelClicked(){
+        this.props.cancelDelete();
         this.setState({show: false});
     }
 
@@ -50,4 +51,3 @@ ConfirmModal.propTypes = {
     show: React.PropTypes.bool.isRequired,
     confirm: React.PropTypes.func.isRequired
 }
-
