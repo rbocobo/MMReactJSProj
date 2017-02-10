@@ -106,11 +106,11 @@ export default class TaskTable extends React.Component{
     let data = [];
 
     switch(arg.field){
-      case "TaskName":
+      case "taskName":
       data = _.orderBy(this.state.tableData,[arg.field],[arg.direction]);
       break;
 
-      case "Priority":
+      case "priority":
 
        data = _.sortBy(this.state.tableData, (e)=>{
           const rankAsc = {
@@ -124,14 +124,14 @@ export default class TaskTable extends React.Component{
             "Low" : 3
           }
           if(arg.direction == "asc")
-          return rankAsc[e.Priority];
+          return rankAsc[e.priority];
           else
-          return rankDesc[e.Priority]
+          return rankDesc[e.priority]
         })
 
       break;
 
-      case "Status":
+      case "status":
 
        data = _.sortBy(this.state.tableData, (e)=>{
           const rankAsc = {
@@ -145,9 +145,9 @@ export default class TaskTable extends React.Component{
             "To Do" : 3
           }
           if(arg.direction == "asc")
-          return rankAsc[e.Status];
+          return rankAsc[e.status];
           else
-          return rankDesc[e.Status]
+          return rankDesc[e.status]
         })
 
       break;
@@ -166,6 +166,10 @@ export default class TaskTable extends React.Component{
 
   }
 
+  handleCancelDelete(){
+    this.setState({showConfirmModal:false});
+  }
+
   render(){
 
     return(
@@ -175,9 +179,9 @@ export default class TaskTable extends React.Component{
           <Table striped bordered condensed hover responsive>
           <thead>
             <tr>
-              <th>Task Details <Sorter field="TaskName" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
-              <th>Priority <Sorter field="Priority" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
-              <th>Status <Sorter field="Status" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
+              <th>Task Details <Sorter field="taskName" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
+              <th>priority <Sorter field="priority" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
+              <th>status <Sorter field="status" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
               <th></th>
             </tr>
           </thead>
@@ -201,7 +205,7 @@ export default class TaskTable extends React.Component{
       </Panel>
       <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>
       <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)} cancelAdd={this.handleCancelAddTask.bind(this)}/>
-      <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} />
+      <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} cancelDelete={this.handleCancelDelete.bind(this)} />
     </div>
     );
   }

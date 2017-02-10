@@ -18,10 +18,10 @@ export default class AddTaskModal extends Component {
   handleSaveClicked(){
     let task = {
       id:-1,
-      TaskName:this.state.taskName,
-      TaskDescription:this.state.taskDescription,
-      Priority:this.state.priority,
-      Status:this.state.status,
+      taskName:this.state.taskName,
+      taskDescription:this.state.taskDescription,
+      priority:this.state.priority,
+      status:this.state.status,
     }
     console.log("saving");
     console.log(task);
@@ -73,20 +73,20 @@ export default class AddTaskModal extends Component {
           </Modal.Header>
           <Modal.Body>
             <form>
-            <FormGroup controlId="formControlsTaskName">
+            <FormGroup controlId="formControlstaskName">
               <ControlLabel>Task Name</ControlLabel>
               <FormControl type="text" placeholder="Enter Task Name" onChange={e=>this.handleChange("taskName", e)}/>
             </FormGroup>
-            <FormGroup controlId="formControlsTaskDescription">
+            <FormGroup controlId="formControlstaskDescription">
               <ControlLabel>Task Description</ControlLabel>
               <FormControl componentClass="textarea" placeholder="Enter Task Description" onChange={e=>this.handleChange("taskDescription", e)}/>
             </FormGroup>
-            <FormGroup controlId="formControlsPriority">
-              <ControlLabel>Priority</ControlLabel>
+            <FormGroup controlId="formControlspriority">
+              <ControlLabel>priority</ControlLabel>
               <DropDown type="priority" selected={e=>this.handleSelected(e)}/>
             </FormGroup>
-            <FormGroup controlId="formControlsStatus">
-              <ControlLabel>Status</ControlLabel>
+            <FormGroup controlId="formControlsstatus">
+              <ControlLabel>status</ControlLabel>
               <DropDown type="status" selected={e=>this.handleSelected(e)}/>
             </FormGroup>
             </form>
