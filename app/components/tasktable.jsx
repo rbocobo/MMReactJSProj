@@ -7,6 +7,8 @@ import _ from "lodash";
 import Pager from "./pager";
 import Sorter from "./sorter";
 import ConfirmModal from "./confirmmodal";
+import TaskStore from "../stores/taskStore";
+import * as TaskActions from "../actions/taskActions";
 
 export default class TaskTable extends React.Component{
   constructor(props){
@@ -15,7 +17,7 @@ export default class TaskTable extends React.Component{
 
     let skipCount = 0;
     let takeCount = 10;
-    let tableData = _.filter(json,i=>{ return true; });
+    let tableData = TaskStore.getAll();  //_.filter(json,i=>{ return true; });
     let pagedData = _.take(_.drop(tableData, skipCount), takeCount);
     this.state = {
       tableData:tableData,
@@ -32,20 +34,38 @@ export default class TaskTable extends React.Component{
     console.log(pagedData);
   }
 
+  componentWillMount(){
+      TaskStore.on("change", this.refreshList.bind(this));
+  }
+
+  componentWillUnmount(){
+    TaskStore.removeListener("change", this.refreshList);
+  }
+
+  refreshList(){
+    var data = TaskStore.getAll();
+    this.setState({tableData:data, rowCount:data.length });
+    console.log(this.state.tableData);
+    this.setPagedData(this.state.page, data);
+    console.log("refreshList()");
+  }
+
   handleAddTaskClicked(){
     console.log("Add Task");
     this.setState({showModal:true});
   }
 
   handleSaveTask(e){
-    let id = _.random(_.now());
-    let data = this.state.tableData;
-    data.push(e); //_.concat(this.state.tableData, e);
-    console.log("Added Task");
-    console.log(data);
-    this.setState({tableData:data, showModal: false, rowCount:data.length });
-    console.log(this.state.tableData);
-    this.setPagedData(this.state.page, data);
+    // let id = _.random(_.now());
+    // let data = this.state.tableData;
+    // data.push(e); //_.concat(this.state.tableData, e);
+    // console.log("Added Task");
+    // console.log(data);
+    // this.setState({tableData:data, showModal: false, rowCount:data.length });
+    // console.log(this.state.tableData);
+    // this.setPagedData(this.state.page, data);
+    TaskActions.createTask(e);
+    this.setState({showModal:false});
   }
 
   handleCancelAddTask(){

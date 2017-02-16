@@ -9,6 +9,9 @@ const config = {
         publicPath: "",
         filename: "/js/bundle.js"
     },
+    resolve:{
+      extensions:['','.js','.jsx']
+    },
     module:{
         loaders:[{
             test:/\.jsx?$/,

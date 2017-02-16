@@ -1,7 +1,8 @@
 import React from 'react';
-import {Nav,NavItem,NavDropdown,MenuItem,Navbar} from 'react-bootstrap';
+import {Nav,NavItem,NavDropdown,MenuItem,Navbar,OverlayTrigger, Button} from 'react-bootstrap';
 import Style from "../css/app.css";
 import LinkContainer from 'react-router-bootstrap';
+import PriorityTasksPopover from "./priorityTasksPopover";
 
 export default class Header extends React.Component{
   constructor(props){
@@ -39,8 +40,9 @@ export default class Header extends React.Component{
                     </NavDropdown>
                 </Nav>
                 <Nav pullRight>
-                    <NavItem eventKey={1} href="#">Link Right</NavItem>
-                    <NavItem eventKey={2} href="#">Link Right</NavItem>
+                    <OverlayTrigger trigger="click" placement="right" container={this} overlay={<PriorityTasksPopover/>}>
+                      <NavItem>Action</NavItem>
+                    </OverlayTrigger>
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
