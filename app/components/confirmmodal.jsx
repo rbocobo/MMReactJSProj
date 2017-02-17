@@ -13,7 +13,7 @@ export default class ConfirmModal extends Component{
 
     handleOKClicked(){
         this.props.confirm();
-        this.state({show:false});
+        this.setState({show:false});
     }
 
     handleCancelClicked(){

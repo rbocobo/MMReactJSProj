@@ -1,14 +1,16 @@
 import React from 'react';
-import {Nav,NavItem,NavDropdown,MenuItem,Navbar,OverlayTrigger, Button} from 'react-bootstrap';
+import {Nav,NavItem,NavDropdown,MenuItem,Navbar,OverlayTrigger, Button,Popover} from 'react-bootstrap';
 import Style from "../css/app.css";
 import LinkContainer from 'react-router-bootstrap';
 import PriorityTasksPopover from "./priorityTasksPopover";
+import PriorityTaskStore from "../stores/priorityTaskStore";
 
 export default class Header extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      activeKey: 1
+      activeKey: 1,
+      priorityTasks: PriorityTaskStore.getAll()
     };
   }
   getInitialState(){
@@ -17,6 +19,21 @@ export default class Header extends React.Component{
   handleSelect(selectedKey){
     //console.log(selectedKey);
     //this.setState({activeKey: selectedKey});
+  }
+
+  refreshList(){
+    console.log("header:refreshList")
+    this.setState({
+      priorityTasks: PriorityTaskStore.getAll()
+    });
+  }
+
+  componentWillMount(){
+      PriorityTaskStore.on("change", this.refreshList.bind(this));
+  }
+
+  componentWillUnmount(){
+    PriorityTaskStore.removeListener("change", this.refreshList);
   }
   render(){
     return(
@@ -40,11 +57,10 @@ export default class Header extends React.Component{
                     </NavDropdown>
                 </Nav>
                 <Nav pullRight>
-                    <OverlayTrigger trigger="click" placement="right" container={this} overlay={<PriorityTasksPopover/>}>
-                      <NavItem>Action</NavItem>
-                    </OverlayTrigger>
+                    <PriorityTasksPopover data={this.state.priorityTasks}/>
                 </Nav>
                 </Navbar.Collapse>
+
             </Navbar>
         );
       }

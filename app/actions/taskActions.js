@@ -8,7 +8,8 @@ export function  createTask(task){
   });
 }
 
-export function  updateTask(task){
+
+export function editTask(task){
   dispatcher.dispatch({
     type: TaskActionConstants.ACTION_EDIT,
     task

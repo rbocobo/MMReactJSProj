@@ -20,7 +20,7 @@ export default class TaskTableRow extends React.Component {
             editstatus: ""
 
         };
-        console.log(this.state);
+        //console.log(this.state);
     }
 
     handleEdit(){
@@ -33,7 +33,7 @@ export default class TaskTableRow extends React.Component {
         editstatus: this.state.status
       });
 
-      console.log("Edit");
+      //console.log("Edit");
     }
 
     handleSave(){
@@ -46,15 +46,15 @@ export default class TaskTableRow extends React.Component {
         status : this.state.editstatus,
       };
       this.props.updateRow(state);
-      console.log("Save");
+      //console.log("Save");
     }
 
     handleCancel(){
       this.setState({isEdit:false});
       let oldState = this.state.oldState;
       this.setState(oldState);
-      console.log(this.state.oldState);
-      console.log("Cancel");
+      //console.log(this.state.oldState);
+      //console.log("Cancel");
     }
 
     handleDelete(){
@@ -70,14 +70,14 @@ export default class TaskTableRow extends React.Component {
     }
 
     handleSelectChange(key, val){
-      console.log("Selected:" + val.value);
+      //console.log("Selected:" + val.value);
       let state = {};
       state[key] = val.value;
       this.setState(state);
     }
 
     componentWillReceiveProps(nextProps){
-      console.log("Updating Table Row");
+      //console.log("Updating Table Row");
       this.setState({
         taskName:nextProps.data.taskName,
         taskDescription:nextProps.data.taskDescription,

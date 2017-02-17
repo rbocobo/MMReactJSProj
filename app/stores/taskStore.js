@@ -90,7 +90,7 @@ class TaskStore extends EventEmitter{
     this.emit("change");
   }
 
-  updateTask(task){
+  editTask(task){
     const index = _.findIndex(this.taskMasterList,{ id: task.id});
     this.taskMasterList[index] = task;
 
@@ -98,25 +98,27 @@ class TaskStore extends EventEmitter{
   }
 
   deleteTask(id){
+    console.log("taskStore:deleteTask")
     _.remove(this.taskMasterList, (i)=>{ return i.id == id; });
     this.emit("change");
   }
 
   getAll(){
     return this.taskMasterList;
-    
+
   }
 
   handleAction(action){
+    console.log("taskStore:handleAction");
     switch (action.type) {
       case TaskActionConstants.ACTION_ADD:
         this.createTask(action.task);
         break;
       case TaskActionConstants.ACTION_EDIT:
-        this.updateTask(action.task);
+        this.editTask(action.task);
         break;
       case TaskActionConstants.ACTION_DELETE:
-        this.updateTask(action.id);
+        this.deleteTask(action.id);
         break;
       default:
         this.getAll();
@@ -125,7 +127,7 @@ class TaskStore extends EventEmitter{
   }
 }
 
-const taskStore = new TaskStore;
+const taskStore = new TaskStore();
 dispatcher.register(taskStore.handleAction.bind(taskStore));
 
 export default taskStore;
