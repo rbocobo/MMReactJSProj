@@ -1,5 +1,5 @@
 import React from "react";
-import { Popover, OverlayTrigger, NavItem, Panel } from "react-bootstrap";
+import { Popover, OverlayTrigger, NavItem, Panel, Badge } from "react-bootstrap";
 
 const PriorityTasksPopover = (props) => {
       const popoverPriorityTask = (
@@ -19,7 +19,7 @@ const PriorityTasksPopover = (props) => {
       return (
 
         <OverlayTrigger trigger="click" placement="bottom"  overlay={popoverPriorityTask}>
-          <NavItem>Priority Tasks</NavItem>
+          <NavItem>Priority Tasks <Badge>{props.data.length}</Badge></NavItem>
         </OverlayTrigger>
       );
 
