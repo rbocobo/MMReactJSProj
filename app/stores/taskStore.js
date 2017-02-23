@@ -85,7 +85,10 @@ class TaskStore extends EventEmitter{
   }
   createTask(task){
     task.id = _.random(_.now());
+    const index = _.findIndex(this.taskMasterList,{ id: task.id});
+    if(!index || index < 0){
     this.taskMasterList.push(task);
+    }
     console.log(this.taskMasterList);
     this.emit("change");
   }

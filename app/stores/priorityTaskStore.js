@@ -17,6 +17,7 @@ class PriorityTaskStore extends EventEmitter{
   }
 
   refreshList(){
+    dispatcher.waitFor([TaskStore.dispatchToken]);
     console.log("PriorityTaskStore:refreshList");
     this.tempList = TaskStore.getAll();
     this.prioritytaskMasterList = _.filter(TaskStore.getAll(), { priority: "High"});
@@ -29,7 +30,6 @@ class PriorityTaskStore extends EventEmitter{
       case TaskActionConstants.ACTION_ADD:
       case TaskActionConstants.ACTION_EDIT:
       case TaskActionConstants.ACTION_DELETE:{
-        dispatcher.waitFor([TaskStore.dispatchToken]);
         this.refreshList();
         break;
       }
@@ -42,5 +42,5 @@ class PriorityTaskStore extends EventEmitter{
 
 const priorityTaskStore = new PriorityTaskStore();
 dispatcher.register(priorityTaskStore.handleAction.bind(priorityTaskStore));
-TaskStore.dispatchToken = dispatcher.register(TaskStore.handleAction.bind(TaskStore));
+//TaskStore.dispatchToken = dispatcher.register(TaskStore.handleAction.bind(TaskStore));
 export default priorityTaskStore;
