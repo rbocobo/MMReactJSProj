@@ -3,6 +3,7 @@ import {Nav,NavItem,NavDropdown,MenuItem,Navbar,OverlayTrigger, Button,Popover} 
 import Style from "../css/app.css";
 import LinkContainer from 'react-router-bootstrap';
 import PriorityTasksPopover from "./priorityTasksPopover";
+import AddTaskPopover from "./addtaskpopover";
 import PriorityTaskStore from "../stores/priorityTaskStore";
 
 export default class Header extends React.Component{
@@ -58,6 +59,7 @@ export default class Header extends React.Component{
                 </Nav>
                 <Nav pullRight>
                     <PriorityTasksPopover data={this.state.priorityTasks}/>
+                    <AddTaskPopover show={true}/>
                 </Nav>
                 </Navbar.Collapse>
 
