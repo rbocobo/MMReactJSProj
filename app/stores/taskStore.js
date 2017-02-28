@@ -84,9 +84,12 @@ class TaskStore extends EventEmitter{
 
   }
   createTask(task){
-    task.id = Date.now();
+    task.id = _.random(_.now());
+    const index = _.findIndex(this.taskMasterList,{ id: task.id});
+    if(!index || index < 0){
     this.taskMasterList.push(task);
-
+    }
+    console.log(this.taskMasterList);
     this.emit("change");
   }
 
@@ -128,6 +131,6 @@ class TaskStore extends EventEmitter{
 }
 
 const taskStore = new TaskStore();
-dispatcher.register(taskStore.handleAction.bind(taskStore));
+taskStore.dispatchToken = dispatcher.register(taskStore.handleAction.bind(taskStore));
 
 export default taskStore;

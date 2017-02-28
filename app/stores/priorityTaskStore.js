@@ -8,7 +8,7 @@ class PriorityTaskStore extends EventEmitter{
   constructor(){
     super();
     this.prioritytaskMasterList = _.filter(TaskStore.getAll(), { priority: "High"});
-    console.log("PriorityTaskStore:constructor");
+    console.log(this.prioritytaskMasterList);
   }
 
   getAll(){
@@ -17,8 +17,9 @@ class PriorityTaskStore extends EventEmitter{
   }
 
   refreshList(){
-    console.log("PriorityTaskStore:refreshList");
     dispatcher.waitFor([TaskStore.dispatchToken]);
+    console.log("PriorityTaskStore:refreshList");
+    this.tempList = TaskStore.getAll();
     this.prioritytaskMasterList = _.filter(TaskStore.getAll(), { priority: "High"});
     this.emit("change");
   }
@@ -41,5 +42,5 @@ class PriorityTaskStore extends EventEmitter{
 
 const priorityTaskStore = new PriorityTaskStore();
 dispatcher.register(priorityTaskStore.handleAction.bind(priorityTaskStore));
-TaskStore.dispatchToken = dispatcher.register(TaskStore.handleAction.bind(TaskStore));
+//TaskStore.dispatchToken = dispatcher.register(TaskStore.handleAction.bind(TaskStore));
 export default priorityTaskStore;
