@@ -3,6 +3,7 @@ import {Grid, Col, Row, Panel} from 'react-bootstrap';
 import Hero from './hero';
 import Section from './section';
 import CardList from './cardlist';
+import Timer from "./timer";
 
 export default class Content extends Component{
     render(){
@@ -21,7 +22,7 @@ export default class Content extends Component{
             },
         ];
         return(
-      
+
                 <Grid fluid>
                     <Row>
                         <Col md={12}>
@@ -38,9 +39,14 @@ export default class Content extends Component{
                         <CardList data={cardData}/>
                         </Col>
                     </Row>
+                    <Row>
+                      <Col mdOffset={2} md={8}>
+                          <Timer/>
+                      </Col>
+                    </Row>
                 </Grid>
-            
-            
+
+
         )
     }
 }
