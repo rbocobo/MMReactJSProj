@@ -55,3 +55,10 @@ body > div > div{
 .center{
   text-align: center;
 }
+
+.btn-toolbar btn:first {
+  margin-right: -50% !important;
+}
+.panel .panel-heading{
+  text-align:center;
+}

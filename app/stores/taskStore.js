@@ -123,9 +123,6 @@ class TaskStore extends EventEmitter{
       case TaskActionConstants.ACTION_DELETE:
         this.deleteTask(action.id);
         break;
-      default:
-        this.getAll();
-
     }
   }
 }

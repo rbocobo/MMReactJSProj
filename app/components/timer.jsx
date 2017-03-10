@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import {Button, ButtonGroup, Panel } from 'react-bootstrap';
+import {Button, ButtonGroup, ButtonToolbar, Panel, Grid, Row, Col, Glyphicon, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
   let timer = '';
 export default class Timer extends Component{
@@ -102,23 +102,51 @@ export default class Timer extends Component{
 
     this.state.timerStarted ? '' : '';
     this.state.timerStopped ? '' : '';
-		const ui = [
-			<button onClick={this.handleTimerStart.bind(this)}>Start</button>,
-			<button onClick={this.handleTimerStop.bind(this)}>Stop</button>,
-			<button onClick={this.handleTimerReset.bind(this)}>Reset</button>
-		];
+		const ui = (
+      <ButtonToolbar>
+        <Button onClick={this.handleTimerStart.bind(this)} bsStyle="success">Start</Button>
+        <Button onClick={this.handleTimerStop.bind(this)}  bsStyle="danger">Stop</Button>
+        <Button onClick={this.handleTimerReset.bind(this)} bsStyle="primary">Reset</Button>
+      </ButtonToolbar>
+		);
+    const timerTypeToolbar = (
+      <ButtonGroup>
+        <Button bsStyle="primary">Pomodoro</Button>
+        <Button bsStyle="primary">Short Break</Button>
+        <Button bsStyle="primary">Long Break</Button>
+      </ButtonGroup>
+    );
+
+    const tooltipConfig = (<Tooltip id="tooltipConfig">Configure Timer</Tooltip>);
+
+    const settings =[
+      <OverlayTrigger placement="top" ref="overlay" overlay={tooltipConfig}><span><Glyphicon glyph="cog"/></span></OverlayTrigger>
+    ];
 
     return (
-      <div style={{width:"400px", height:"300px",border:"solid 1px red", borderRadius:"10px", margin: "auto", background:"gray"}}>
-        <div className="timer">
-				{ui}
-				<hr/>
-				<h2>Time</h2>
-				<h3 className="time"><span>{minutes}</span>:<span>{seconds}</span></h3>
-				<hr/>
-				<h3>{timerState}</h3>
-			</div>
-      </div>
+
+        <Panel style={{width:"430px"}} header={timerTypeToolbar} bsStyle="success" footer={settings}>
+        <Grid style={{width:"400px"}}>
+          <Row>
+            <Col md={8} mdOffset={2}>
+              <div style={{textAlign:"center",fontSize:"60px", fontFamily:"Sarpanch, sans-serif"}}>
+                <span>{minutes}</span>:<span>{seconds}</span>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={8} mdOffset={3}>
+              {ui}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h6>{timerState}</h6>
+            </Col>
+          </Row>
+        </Grid>
+        </Panel>
+
     );
   }
 }

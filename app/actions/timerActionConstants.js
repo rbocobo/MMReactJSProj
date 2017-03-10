@@ -1,0 +1,7 @@
+const TimerActionConstants = {
+ ACTION_TIMERSTART: "ACTION_TIMERSTART",
+ ACTION_TIMERRESET: "ACTION_TIMERRESET",
+ ACTION_TIMERSTOP: "ACTION_TIMERSTOP",
+}
+
+export default TimerActionConstants;
