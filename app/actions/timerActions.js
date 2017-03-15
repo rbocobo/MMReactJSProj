@@ -3,19 +3,26 @@ import TimerActionConstants from "./timerActionConstants";
 
 export function  startTimer(clock){
   dispatcher.dispatch({
-    type: ACTION_TIMERSTART: "ACTION_TIMERSTART",
+    type: TimerActionConstants.ACTION_TIMERSTART,
     clock
   });
 }
 
 export function stopTimer(){
   dispatcher.dispatch({
-    type: ACTION_TIMERSTART: "ACTION_TIMERSTOP"
+    type: TimerActionConstants.ACTION_TIMERSTOP
   });
 }
 
 export function  resetTimer(){
   dispatcher.dispatch({
-    type: ACTION_TIMERSTART: "ACTION_TIMERRESET"
+    type: TimerActionConstants.ACTION_TIMERRESET
+  });
+}
+
+export function  addTimerConfig(config){
+  dispatcher.dispatch({
+    type: TimerActionConstants.ACTION_ADDCONFIG,
+    config
   });
 }

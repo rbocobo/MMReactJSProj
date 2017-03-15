@@ -28,3 +28,24 @@ export function  reloadTask(){
     type: TaskActionConstants.ACTION_RELOAD
   });
 }
+
+export function setInProgress(id){
+  dispatcher.dispatch({
+    type: TaskActionConstants.ACTION_SETINPROGRESS,
+    id
+  });
+}
+
+export function updateElapsedTask(data){
+  dispatcher.dispatch({
+    type: TaskActionConstants.ACTION_UPDATEELAPSEDTASK,
+    data
+  });
+}
+
+export function completeTask(id){
+  dispatcher.dispatch({
+    type: TaskActionConstants.ACTION_COMPLETE,
+    id
+  });
+}

@@ -13,12 +13,17 @@ export default class DropDown extends Component{
         {label: "Low",value: "Low"}
       ]
     }
-    else {
+    else if(this.props.type == "status") {
       options = [
         {label: "To Do", value:"To Do"},
         {label: "In Progress", value:"In Progress"},
         {label: "Done", value:"Done"},
       ]
+    }
+    else {
+      options = this.props.config.map((item)=>{
+        return { label: item.name, value: item.id }
+      })
     }
 
     this.state = {

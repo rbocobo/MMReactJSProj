@@ -8,6 +8,7 @@ import Pager from "./pager";
 import Sorter from "./sorter";
 import ConfirmModal from "./confirmmodal";
 import TaskStore from "../stores/taskStore";
+import TimerStore from "../stores/timerStore";
 import * as TaskActions from "../actions/taskActions";
 
 export default class TaskTable extends React.Component{
@@ -17,8 +18,9 @@ export default class TaskTable extends React.Component{
 
     let skipCount = 0;
     let takeCount = 10;
-    let tableData = TaskStore.getAll();  //_.filter(json,i=>{ return true; });
+    let tableData = this.props.view == "all" ? TaskStore.getAll() : TaskStore.getIncompleteTasks();
     let pagedData = _.take(_.drop(tableData, skipCount), takeCount);
+    let timerConfigs = TimerStore.getConfigs();
     this.state = {
       tableData:tableData,
       showModal: false,
@@ -27,7 +29,8 @@ export default class TaskTable extends React.Component{
       rowCount: tableData.length,
       page: 1,
       pagedData: pagedData,
-      numOfItems: 10
+      numOfItems: 10,
+      timerConfigs: timerConfigs
     };
 
 
@@ -43,9 +46,10 @@ export default class TaskTable extends React.Component{
   }
 
   refreshList(){
-    var data = TaskStore.getAll();
+    console.log("refreshing list");
+    var data = this.props.view == "all" ? TaskStore.getAll() : TaskStore.getIncompleteTasks();
     this.setState({tableData:data, rowCount:data.length });
-    //console.log(this.state.tableData);
+    console.log(this.state.tableData);
     this.setPagedData(this.state.page, data);
     //console.log("refreshList()");
   }
@@ -192,6 +196,12 @@ export default class TaskTable extends React.Component{
   }
 
   render(){
+    const footer = this.props.viewMode ? (<span></span>) :
+      (<div>
+        <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>
+        <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)} cancelAdd={this.handleCancelAddTask.bind(this)}/>
+        <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} cancelDelete={this.handleCancelDelete.bind(this)} />
+      </div>);
 
     return(
       <div className="container">
@@ -203,13 +213,15 @@ export default class TaskTable extends React.Component{
               <th>Task Details <Sorter field="taskName" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
               <th>priority <Sorter field="priority" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
               <th>status <Sorter field="status" direction="asc" sort={arg=>this.handleSort(arg)}/></th>
+              <th>Config</th>
+              <th>Elapsed</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {this.state.pagedData.map((item)=>{
               return (
-                <TaskTableRow key={item.id} data={item} updateRow={val=>this.handleUpdateRow(val)} deleteRow={val=>this.handleDeleteRow(val)}/>
+                <TaskTableRow key={item.id} data={item} updateRow={val=>this.handleUpdateRow(val)} deleteRow={val=>this.handleDeleteRow(val)} viewMode={this.props.viewMode} timerConfigs={this.state.timerConfigs}/>
               )
               })}
           </tbody>
@@ -224,10 +236,13 @@ export default class TaskTable extends React.Component{
               itemsPerPageChanged={this.handleItemsPerPageChanged.bind(this)}
               />
       </Panel>
-      <Button onClick={()=>this.handleAddTaskClicked()}>Add New</Button>
-      <AddTaskModal show={this.state.showModal} saveTask={e=>this.handleSaveTask(e)} cancelAdd={this.handleCancelAddTask.bind(this)}/>
-      <ConfirmModal show={this.state.showConfirmModal} title={"Confirm Delete"} message="Please confirm this record will be deleted" confirm={this.handleConfirmDelete.bind(this)} cancelDelete={this.handleCancelDelete.bind(this)} />
+      {footer}
     </div>
     );
   }
+}
+
+TaskTable.defaultProps = {
+  viewMode: false,
+  view: "all"
 }
