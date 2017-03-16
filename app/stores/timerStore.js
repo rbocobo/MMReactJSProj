@@ -38,17 +38,24 @@ class TimerStore extends EventEmitter {
     this.configData = [
       {
         id: 0,
-        name: "default",
-        pomodoro:{ minutes: 20, seconds: 0 },
+        name: "Default Config",
+        pomodoro:{ minutes: 5, seconds: 0 },
         shortbreak:{ minutes: 2, seconds: 30 },
         longbreak:{ minutes: 5, seconds: 0 },
       },
       {
         id: 1,
-        name: "Main",
-        pomodoro:{ minutes: 1, seconds: 0 },
-        shortbreak:{ minutes: 0, seconds: 15 },
-        longbreak:{ minutes: 0, seconds: 30 },
+        name: "Config 2",
+        pomodoro:{ minutes: 8, seconds: 45 },
+        shortbreak:{ minutes: 3, seconds: 15 },
+        longbreak:{ minutes: 4, seconds: 30 },
+      },
+      {
+        id: 2,
+        name: "Config 3",
+        pomodoro:{ minutes: 10, seconds: 0 },
+        shortbreak:{ minutes: 3, seconds:30 },
+        longbreak:{ minutes: 5, seconds: 15 },
       }
     ];
   }

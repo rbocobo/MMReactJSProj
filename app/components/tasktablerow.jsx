@@ -84,6 +84,10 @@ export default class TaskTableRow extends React.Component {
       this.setState(state);
     }
 
+    minTwoDigits(n){
+      return (n < 10 ? '0' : '') + n;
+    }
+
     componentWillReceiveProps(nextProps){
       //console.log("Updating Table Row");
       this.setState({
@@ -97,6 +101,8 @@ export default class TaskTableRow extends React.Component {
       });
     }
     render(){
+            let min = this.minTwoDigits(this.state.elapsed.minutes);
+            let sec = this.minTwoDigits(this.state.elapsed.seconds);
             const actionButtons = this.props.viewMode ? (<td/>) :
             (
               <td className="centerText">
@@ -163,7 +169,7 @@ export default class TaskTableRow extends React.Component {
                   onChange={e=> this.handleSelectChange("editconfig",e)}
                    />
                 </td>
-                <td>{this.state.elapsed.minutes + ":" + this.state.elapsed.seconds}</td>
+                <td>{min + ":" + sec}</td>
                 {actionButtons}
                 </tr>
                 );
@@ -178,7 +184,7 @@ export default class TaskTableRow extends React.Component {
                 <td>{this.state.priority}</td>
                 <td>{this.state.status}</td>
                 <td>{this.state.configName}</td>
-                <td>{this.state.elapsed.minutes + ":" + this.state.elapsed.seconds}</td>
+                <td>{ min + ":" + sec}</td>
                 {actionButtons}
 
                 </tr>
