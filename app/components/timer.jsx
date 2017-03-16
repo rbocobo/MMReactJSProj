@@ -77,12 +77,12 @@ export default class Timer extends Component{
   handleTimerEnd(){
     console.log('Timer Ended');
 
-  //   if(this.state.mustPersist){
-  //   TaskActions.updateElapsedTask({
-  //      task: this.state.task,
-  //      elapsed: TimerStore.getElapsed()
-  //    });
-  //  }
+    if(this.state.mustPersist){
+    TaskActions.updateElapsedTask({
+       task: this.state.task,
+       elapsed: TimerStore.getElapsed()
+     });
+   }
    this.setState({
      startEnabled:true,
      stopEnabled: false,
@@ -160,6 +160,21 @@ export default class Timer extends Component{
   componentWillMount(){
       TimerStore.on("timerchange", this.getTime );
       TimerStore.on("timerended", this.handleTimerEnd);
+  }
+
+  componentDidMount(){
+      const task = TimerStore.getTask();
+      if(task){
+        this.setState({task},()=>{
+          this.setState({
+            startEnabled:false,
+            stopEnabled: true,
+            resetEnabled: false,
+            completeEnabled:false,
+          });
+        });
+      }
+
   }
 
   componentWillUnmount(){

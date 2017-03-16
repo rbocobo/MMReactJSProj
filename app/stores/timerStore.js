@@ -120,12 +120,12 @@ class TimerStore extends EventEmitter {
         timerEnded: 1,
         timerStopped: this.timerData.timerStopped
       };
-      if(this.mustPersist){
-      TaskActions.updateElapsedTask({
-        task: this.taskInProgress,
-        elapsed: this.getElapsed()
-      });
-      }
+      // if(this.mustPersist){
+      // TaskActions.updateElapsedTask({
+      //   task: this.taskInProgress,
+      //   elapsed: this.getElapsed()
+      // });
+      // }
       this.emit("timerended");
     }
 
@@ -193,6 +193,7 @@ class TimerStore extends EventEmitter {
         this.start(action.clock);
         break;
       case TimerActionConstants.ACTION_TIMERSTOP:
+      console.log("timerStore:ACTION_TIMERSTOP");
         this.stop();
         break;
       case TimerActionConstants.ACTION_TIMERRESET:
