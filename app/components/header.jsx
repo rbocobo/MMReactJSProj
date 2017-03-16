@@ -7,6 +7,8 @@ import PriorityTasksPopover from "./priorityTasksPopover";
 import AddTaskPopover from "./addtaskpopover";
 import PriorityTaskStore from "../stores/priorityTaskStore";
 import TimerStore from "../stores/TimerStore";
+import * as TaskActions from "../actions/TaskActions";
+
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 export default class Header extends React.Component{
@@ -38,6 +40,12 @@ export default class Header extends React.Component{
   showNotification(){
     const task = TimerStore.getTask();
     NotificationManager.success(task.taskName, "Timer Ended", 10000);
+
+    TaskActions.updateElapsedTask({
+       task: TimerStore.getTask(),
+       elapsed: TimerStore.getElapsed()
+     });
+
   }
 
   componentWillMount(){

@@ -47,7 +47,7 @@ class TimerStore extends EventEmitter {
         id: 1,
         name: "Config 2",
         pomodoro:{ minutes: 8, seconds: 45 },
-        shortbreak:{ minutes: 3, seconds: 15 },
+        shortbreak:{ minutes: 0, seconds: 15 },
         longbreak:{ minutes: 4, seconds: 30 },
       },
       {
@@ -189,6 +189,10 @@ class TimerStore extends EventEmitter {
 
   getTask(){
     return this.taskInProgress;
+  }
+
+  getTimerState(){
+    return this.timerData;
   }
 
   handleAction(action){
