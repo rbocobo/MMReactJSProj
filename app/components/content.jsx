@@ -46,6 +46,7 @@ export default class Content extends Component{
 
     }
     handleOnShortBreakClick(){
+      console.log("short");
       this.setState({
         minutes:this.state.config.shortbreak.minutes,
         seconds:this.state.config.shortbreak.seconds
@@ -53,6 +54,7 @@ export default class Content extends Component{
     }
 
     handleOnLongBreakClick(){
+      console.log("long");
       this.setState({
         minutes:this.state.config.longbreak.minutes,
         seconds:this.state.config.longbreak.seconds
@@ -60,6 +62,7 @@ export default class Content extends Component{
     }
 
     handleOnPomodoroClick(){
+      console.log("pomodoro");
       this.setState({
         minutes:this.state.config.pomodoro.minutes,
         seconds:this.state.config.pomodoro.seconds
@@ -103,19 +106,23 @@ export default class Content extends Component{
                         </Col>
                     </Row>
                     <Row>
-                      <Col mdOffset={1} md={3}>
+                      <Col  md={4}>
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-                          <Tab eventKey={1} title="Timer">
-                            <Timer
-                              tasks={this.state.tasks}
-                              minutes={this.state.minutes}
-                              seconds={this.state.seconds}
-                              onShortBreakClick={this.handleOnShortBreakClick.bind(this)}
-                              onLongBreakClick={this.handleOnLongBreakClick.bind(this)}
-                              onPomodoroClick={this.handleOnPomodoroClick.bind(this)}
-                              onConfigChanged={(e)=>this.handleOnConfigChanged(e)}
-                            />
-                          </Tab>
+
+                            <Tab eventKey={1} title="Timer">
+                              <div className="pullRight">
+                              <Timer
+                                tasks={this.state.tasks}
+                                minutes={this.state.minutes}
+                                seconds={this.state.seconds}
+                                onShortBreakClick={this.handleOnShortBreakClick.bind(this)}
+                                onLongBreakClick={this.handleOnLongBreakClick.bind(this)}
+                                onPomodoroClick={this.handleOnPomodoroClick.bind(this)}
+                                onConfigChanged={(e)=>this.handleOnConfigChanged(e)}
+                              />
+                              </div>
+                            </Tab>
+
                           <Tab eventKey={2} title="Configure Timer">
                             <TimerConfig/>
                           </Tab>

@@ -175,6 +175,10 @@ class TimerStore extends EventEmitter {
 
   }
 
+  getTask(){
+    return this.taskInProgress;
+  }
+
   handleAction(action){
     console.log("timerStore:handleAction");
     switch (action.type) {

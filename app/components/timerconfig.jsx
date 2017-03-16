@@ -14,11 +14,13 @@ export default class TimerConfig extends Component{
       shortbreak:{},
       longbreak:{}
     }
+
+    this.refreshList = this.refreshList.bind(this)
   }
 
   renderRows(){
     return this.state.configs.map((item)=>{
-      return(<tr>
+      return(<tr key={item.id}>
         <td>{item.name}</td>
         <td>{item.pomodoro.minutes + ':' + item.pomodoro.seconds}</td>
         <td>{item.shortbreak.minutes + ':' + item.shortbreak.seconds}</td>
@@ -29,7 +31,7 @@ export default class TimerConfig extends Component{
   }
 
   componentWillMount(){
-      TimerStore.on("change", this.refreshList.bind(this));
+      TimerStore.on("change", this.refreshList);
   }
 
   componentWillUnmount(){
@@ -66,7 +68,7 @@ handleClick(){
 
 render(){
     return(
-    <Table striped bordered condensed hover>
+    <Table  striped bordered condensed hover responsive>
       <thead>
         <tr>
           <td>Name</td>
@@ -75,15 +77,19 @@ render(){
           <td>Long Break</td>
           <td></td>
         </tr>
-        {this.renderRows()}
-        <tr>
-          <td><input type="text" onChange={(e)=>this.handleNameChange(e)}/></td>
-          <td><TimerEntry onChange={(t)=>this.handlePomodoroTimeChange(t)}/></td>
-          <td><TimerEntry onChange={(t)=>this.handleShortBreakTimeChange(t)}/></td>
-          <td><TimerEntry onChange={(t)=>this.handleLongBreakTimeChange(t)}/></td>
-          <td><Button onClick={this.handleClick.bind(this)}>Save</Button></td>
-        </tr>
+
       </thead>
+      <tbody>
+      {this.renderRows()}
+
+      <tr>
+        <td><input type="text" onChange={(e)=>this.handleNameChange(e)}/></td>
+        <td><TimerEntry onChange={(t)=>this.handlePomodoroTimeChange(t)}/></td>
+        <td><TimerEntry onChange={(t)=>this.handleShortBreakTimeChange(t)}/></td>
+        <td><TimerEntry onChange={(t)=>this.handleLongBreakTimeChange(t)}/></td>
+        <td><Button onClick={this.handleClick.bind(this)}>Save</Button></td>
+      </tr>
+    </tbody>
     </Table>);
   }
 }

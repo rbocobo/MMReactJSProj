@@ -1,20 +1,24 @@
 import React from 'react';
 import {Nav,NavItem,NavDropdown,MenuItem,Navbar,OverlayTrigger, Button,Popover,Modal} from 'react-bootstrap';
 import Style from "../css/app.css";
+import 'react-notifications/lib/notifications.css';
 import LinkContainer from 'react-router-bootstrap';
 import PriorityTasksPopover from "./priorityTasksPopover";
 import AddTaskPopover from "./addtaskpopover";
 import PriorityTaskStore from "../stores/priorityTaskStore";
 import TimerStore from "../stores/TimerStore";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 export default class Header extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       activeKey: 1,
-      priorityTasks: PriorityTaskStore.getAll(),
-      showNotification: false
+      priorityTasks: PriorityTaskStore.getAll()
     };
+
+    this.showNotification = this.showNotification.bind(this);
+    this.refreshList = this.refreshList.bind(this);
   }
   getInitialState(){
     return {activeKey: 1};
@@ -32,12 +36,13 @@ export default class Header extends React.Component{
   }
 
   showNotification(){
-    this.setState({ showNotification: true });
+    const task = TimerStore.getTask();
+    NotificationManager.success(task.taskName, "Timer Ended", 10000);
   }
 
   componentWillMount(){
-      TimerStore.on("timerended", this.showNotification.bind(this));
-      PriorityTaskStore.on("change", this.refreshList.bind(this));
+      TimerStore.on("timerended", this.showNotification);
+      PriorityTaskStore.on("change", this.refreshList);
   }
 
   componentWillUnmount(){
@@ -75,16 +80,8 @@ export default class Header extends React.Component{
                     <AddTaskPopover show={true}/>
                 </Nav>
                 </Navbar.Collapse>
-                <Modal show={this.state.showNotification} onHide={this.close}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Timer Finished</Modal.Title>
-                    <Modal.Body>Timer Finished</Modal.Body>
-                  </Modal.Header>
-                  <Modal.Footer>
-                    <Button onClick={this.close.bind(this)}>Close</Button>
-                  </Modal.Footer>
-                </Modal>
 
+                <NotificationContainer/>
             </Navbar>
         );
       }

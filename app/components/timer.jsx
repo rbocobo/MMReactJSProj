@@ -25,7 +25,11 @@ export default class Timer extends Component{
       shortbreakStyle: "primary",
       longbreakStyle: "primary",
       mustPersist: true,
-      currentTimer: "pomodoro"
+      currentTimer: "pomodoro",
+      startEnabled : false,
+      stopEnabled : false,
+      resetEnabled : false,
+      completeEnabled : false,
     };
 
     this.getTime = this.getTime.bind(this);
@@ -37,16 +41,17 @@ export default class Timer extends Component{
 		console.log('Timer Stopped');
     TimerActions.stopTimer();
     if(this.state.mustPersist){
-    TaskActions.updateElapsedTask({
-      task: this.state.task,
-      elapsed: TimerStore.getElapsed()
-    });
+     TaskActions.updateElapsedTask({
+       task: this.state.task,
+       elapsed: TimerStore.getElapsed()
+     });
     }
-		// clearInterval(this.timer);
-		// this.setState({
-		// 	timerStarted: 0,
-		// 	timerStopped: 1
-		// });
+    this.setState({
+      startEnabled:true,
+      stopEnabled: false,
+      resetEnabled: true,
+      completeEnabled:true,
+    });
 	}
 
   handleTimerStart(){
@@ -61,69 +66,40 @@ export default class Timer extends Component{
       mustPersist: this.state.mustPersist
     });
     TaskActions.setInProgress(this.state.task.id);
-
-    // if(this.state.timerEnded){
-    //   this.handleTimerReset();
-    //   return;
-    // }
-    //
-    // this.setState({
-    //   timerStarted:1,
-    //   timerStopped:0,
-    //   timerEnded:0
-    // });
-    //
-    // let self = this;
-    // let time = this.state.timeDisplay;
-    //
-    // this.timer = setInterval(()=>{
-    //   if(time.seconds > 0){
-    //     time.seconds--;
-    //     this.setState({
-    //       timeDisplay: time
-    //     });
-    //   }else if(time.seconds === 0 && time.minutes > 0){
-    //     time.minutes--;
-    //     time.seconds = 59;
-    //     self.setState({
-    //       timeDisplay:time
-    //     });
-    //   }else{
-    //     this.handleTimerEnd();
-    //   }
-    // },1000);
-
+    this.setState({
+      startEnabled:false,
+      stopEnabled: true,
+      resetEnabled: false,
+      completeEnabled:false,
+    });
   }
 
   handleTimerEnd(){
     console.log('Timer Ended');
-    // clearInterval(this.timer);
-    // this.setState({
-    //   timerStarted: 0,
-    //   timerEnded: 1
-    // });
+
     if(this.state.mustPersist){
     TaskActions.updateElapsedTask({
        task: this.state.task,
        elapsed: TimerStore.getElapsed()
      });
    }
+   this.setState({
+     startEnabled:true,
+     stopEnabled: false,
+     resetEnabled: false,
+     completeEnabled:true,
+   });
   }
 
   handleTimerReset(){
     console.log('Timer Reset');
     TimerActions.resetTimer();
-    // let minutes = this.props.minutes;
-    // let seconds = this.props.seconds;
-    // this.setState({
-		// 	timeDisplay: {
-		// 		minutes: minutes,
-		// 		seconds: seconds
-		// 	},
-		// 	timerStarted: 0,
-		// 	timerStopped: 0,
-		// 	timerEnded: 0,
-		// });
+    this.setState({
+      startEnabled:true,
+      stopEnabled: false,
+      resetEnabled: false,
+      completeEnabled:true,
+    });
   }
 
   handlePomodoroClick(){
@@ -143,6 +119,12 @@ export default class Timer extends Component{
 
   handleTimerComplete(){
     TaskActions.completeTask(this.state.task.id);
+    this.setState({
+      startEnabled:false,
+      stopEnabled: false,
+      resetEnabled: false,
+      completeEnabled:false,
+    });
   }
 
   minTwoDigits(n){
@@ -161,6 +143,10 @@ export default class Timer extends Component{
       task: this.state.tasks[_.findIndex(this.state.tasks, { id: e.value })]
     },()=>{
       this.props.onConfigChanged({config:TimerStore.getConfig(this.state.task.config), currentTimer: this.state.currentTimer});
+      this.setState({
+        startEnabled:true,
+        completeEnabled:true,
+      });
     });
 
   }
@@ -175,12 +161,18 @@ export default class Timer extends Component{
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({
-      tasks: nextProps.tasks,
-			timeDisplay: {
-				minutes: nextProps.minutes,
-				seconds: nextProps.seconds
-			}});
+    console.log("timeDisplay Changing");
+    this.setState({tasks: nextProps.tasks});
+      if(nextProps.minutes != this.props.minutes && nextProps.seconds != this.props.seconds){
+        this.setState(
+          {
+            timeDisplay: {
+      				minutes: nextProps.minutes,
+      				seconds: nextProps.seconds
+      			}
+          }
+        );
+      }
   }
   render(){
     // set display time to use at min 2 digits for all numbers
@@ -195,10 +187,10 @@ export default class Timer extends Component{
     this.state.timerStopped ? '' : '';
 		const actionbuttons = (
       <ButtonToolbar>
-        <Button onClick={this.handleTimerStart.bind(this)} bsStyle="success">Start</Button>
-        <Button onClick={this.handleTimerStop.bind(this)}  bsStyle="danger">Stop</Button>
-        <Button onClick={this.handleTimerReset.bind(this)} bsStyle="info">Reset</Button>
-        <Button onClick={this.handleTimerComplete.bind(this)} bsStyle="primary">Complete</Button>
+        <Button onClick={this.handleTimerStart.bind(this)} bsStyle="success" disabled={!this.state.startEnabled}>Start</Button>
+        <Button onClick={this.handleTimerStop.bind(this)}  bsStyle="danger" disabled={!this.state.stopEnabled}>Stop</Button>
+        <Button onClick={this.handleTimerReset.bind(this)} bsStyle="info" disabled={!this.state.resetEnabled}>Reset</Button>
+        <Button onClick={this.handleTimerComplete.bind(this)} bsStyle="primary" disabled={!this.state.completeEnabled}>Complete</Button>
       </ButtonToolbar>
 		);
     const timerTypeToolbar = (
@@ -221,8 +213,8 @@ export default class Timer extends Component{
 
     return (
         <div>
-        <Panel style={{width:"430px"}} bsStyle="success" >
-        <Grid style={{width:"400px"}}>
+        <Panel style={{width:"100%"}} bsStyle="success" className="pull-right">
+        <Grid style={{width:"400px"}} className="pull-right">
           <Row style={{height:"60px"}}>
             <Col md={10} mdOffset={1}>
               <div>
@@ -252,11 +244,6 @@ export default class Timer extends Component{
           <Row>
             <Col md={10} mdOffset={1}>
               {actionbuttons}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={10}>
-              {settings}
             </Col>
           </Row>
           <Row>
