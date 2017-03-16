@@ -33,12 +33,13 @@ export default class TaskTable extends React.Component{
       timerConfigs: timerConfigs
     };
 
+    this.refreshList = this.refreshList.bind(this);
 
     //console.log(pagedData);
   }
 
   componentWillMount(){
-      TaskStore.on("change", this.refreshList.bind(this));
+      TaskStore.on("change", this.refreshList);
   }
 
   componentWillUnmount(){
@@ -60,14 +61,6 @@ export default class TaskTable extends React.Component{
   }
 
   handleSaveTask(e){
-    // let id = _.random(_.now());
-    // let data = this.state.tableData;
-    // data.push(e); //_.concat(this.state.tableData, e);
-    // console.log("Added Task");
-    // console.log(data);
-    // this.setState({tableData:data, showModal: false, rowCount:data.length });
-    // console.log(this.state.tableData);
-    // this.setPagedData(this.state.page, data);
     TaskActions.createTask(e);
     this.setState({showModal:false});
   }
@@ -78,44 +71,22 @@ export default class TaskTable extends React.Component{
   }
 
   setPagedData(page,tabledata){
-    //console.log("Page: " + page);
-    //console.log(this.state.tableData);
     let skipCount = page == 1 ? 0 : (page - 1) * this.state.numOfItems;
     let takeCount = this.state.numOfItems;
     let pagedData = _.take(_.drop(tabledata, skipCount), takeCount);
-    //console.log("New Paged Data");
-    //console.log(pagedData);
     this.setState({page:page,pagedData:pagedData,tableData:tabledata, rowCount: tabledata.length});
 
   }
 
   handleUpdateRow(val){
-    // console.log("handleUpdateRow");
-    // console.log(val);
-    // let data = this.state.tableData.map(item => {
-    //   if(item.id == val.id){
-    //
-    //     return val;
-    //   }else{
-    //     return item;
-    //   }
-    // });
-    // console.log(data);
-    // this.setState({tableData:data, rowCount:data.length},()=>{
-    //   console.log(data);
-    //   this.setPagedData(this.state.page, data);
-    // });
     console.log("handleUpdateRow");
     TaskActions.editTask(val);
 
   }
 
   handleConfirmDelete(){
-    //let data = _.filter(this.state.tableData, item => { return item.id != this.state.deleteId })
     TaskActions.deleteTask(this.state.deleteId);
     this.setState({showConfirmModal:false, deleteId: 0});
-    //console.log(data);
-    //console.log(this.state.tableData);
   }
 
   handleDeleteRow(id){

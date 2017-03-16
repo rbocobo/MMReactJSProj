@@ -15,6 +15,7 @@ export default class TaskTableRow extends React.Component {
             priority : this.props.data.priority,
             status : this.props.data.status,
             config : this.props.data.config,
+            configName: _.find(this.props.timerConfigs,{ id : this.props.data.config}).name,
             elapsed: this.props.data.elapsed,
             edittaskName: "",
             edittaskDescription: "",
@@ -25,6 +26,7 @@ export default class TaskTableRow extends React.Component {
         };
         //console.log(this.state);
     }
+
 
     handleEdit(){
 
@@ -89,7 +91,9 @@ export default class TaskTableRow extends React.Component {
         taskDescription:nextProps.data.taskDescription,
         priority:nextProps.data.priority,
         status:nextProps.data.status,
-        elapsed:nextProps.data.elapsed
+        config:nextProps.data.config,
+        configName: _.find(this.props.timerConfigs,{ id : nextProps.data.config}).name,
+        elapsed:nextProps.data.elapsed,
       });
     }
     render(){
@@ -173,7 +177,7 @@ export default class TaskTableRow extends React.Component {
                 </td>
                 <td>{this.state.priority}</td>
                 <td>{this.state.status}</td>
-                <td></td>
+                <td>{this.state.configName}</td>
                 <td>{this.state.elapsed.minutes + ":" + this.state.elapsed.seconds}</td>
                 {actionButtons}
 

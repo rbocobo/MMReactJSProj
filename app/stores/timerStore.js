@@ -5,7 +5,7 @@ import TimerActionConstants from "../actions/timerActionConstants";
 import * as TaskActions from "../actions/taskActions";
 import TaskStore from './timerStore';
 
-let timer = '';
+//let timer = '';
 class TimerStore extends EventEmitter {
   constructor() {
     super();
@@ -54,7 +54,11 @@ class TimerStore extends EventEmitter {
   }
 
   start(clock){
+    if(this.timerData.timerStarted == 1){
+      return;
+    }
     console.log('Store Time Started');
+
     this.secondsElapsed = 0;
     this.mustPersist = clock.mustPersist;
     this.taskInProgress = clock.task;
@@ -94,6 +98,7 @@ class TimerStore extends EventEmitter {
         self.timeDisplay = time;
         console.log(this.timeDisplay);
       }else{
+        console.log('TimerStore => ENDING');
         this.end();
       }
       console.log("emitting timerchange");
@@ -108,19 +113,19 @@ class TimerStore extends EventEmitter {
     }
 
     end(){
-      console.log('Timer Ended');
+      console.log('TimerStore => Timer Ended');
       clearInterval(this.timer);
       this.timerData = {
         timerStarted: 0,
         timerEnded: 1,
         timerStopped: this.timerData.timerStopped
       };
-      // if(this.mustPersist){
-      // TaskActions.updateElapsedTask({
-      //   task: this.taskInProgress,
-      //   elapsed: this.getElapsed()
-      // });
-      // }
+      if(this.mustPersist){
+      TaskActions.updateElapsedTask({
+        task: this.taskInProgress,
+        elapsed: this.getElapsed()
+      });
+      }
       this.emit("timerended");
     }
 
@@ -182,7 +187,9 @@ class TimerStore extends EventEmitter {
   handleAction(action){
     console.log("timerStore:handleAction");
     switch (action.type) {
+
       case TimerActionConstants.ACTION_TIMERSTART:
+      console.log("timerStore:ACTION_TIMERSTART");
         this.start(action.clock);
         break;
       case TimerActionConstants.ACTION_TIMERSTOP:

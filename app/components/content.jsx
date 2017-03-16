@@ -13,7 +13,7 @@ export default class Content extends Component{
     constructor(){
       super()
       this.state={
-        minutes:24,
+        minutes:0,
         seconds:0,
         tasks: TaskStore.getIncompleteTasks(),
         config:{
@@ -66,6 +66,8 @@ export default class Content extends Component{
       this.setState({
         minutes:this.state.config.pomodoro.minutes,
         seconds:this.state.config.pomodoro.seconds
+      }, ()=>{
+        console.log(this.state);
       });
     }
 

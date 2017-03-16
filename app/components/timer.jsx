@@ -77,12 +77,12 @@ export default class Timer extends Component{
   handleTimerEnd(){
     console.log('Timer Ended');
 
-    if(this.state.mustPersist){
-    TaskActions.updateElapsedTask({
-       task: this.state.task,
-       elapsed: TimerStore.getElapsed()
-     });
-   }
+  //   if(this.state.mustPersist){
+  //   TaskActions.updateElapsedTask({
+  //      task: this.state.task,
+  //      elapsed: TimerStore.getElapsed()
+  //    });
+  //  }
    this.setState({
      startEnabled:true,
      stopEnabled: false,
@@ -103,18 +103,25 @@ export default class Timer extends Component{
   }
 
   handlePomodoroClick(){
-    this.setState({mustPersist:true, currentTimer: "pomodoro", pomodoroStyle: "success", shortbreakStyle: "primary" , longbreakStyle: "primary"});
-    this.props.onPomodoroClick();
+    this.setState({mustPersist:true, currentTimer: "pomodoro", pomodoroStyle: "success", shortbreakStyle: "primary" , longbreakStyle: "primary"},()=>{
+      this.props.onPomodoroClick();
+    });
+
   }
 
   handleShortBreakClick(){
-    this.setState({mustPersist:true, currentTimer: "shortbreak", pomodoroStyle: "primary", shortbreakStyle: "success" , longbreakStyle: "primary"});
-    this.props.onShortBreakClick();
+    this.setState({mustPersist:true, currentTimer: "shortbreak", pomodoroStyle: "primary", shortbreakStyle: "success" , longbreakStyle: "primary"},()=>{
+      this.props.onShortBreakClick();
+    });
+
   }
 
   handleLongBreakClick(){
-    this.setState({mustPersist:false, currentTimer: "longbreak", pomodoroStyle: "primary", shortbreakStyle: "primary" , longbreakStyle: "success"});
-    this.props.onLongBreakClick();
+    console.log("timer:handleLongBreakClick");
+    this.setState({mustPersist:false, currentTimer: "longbreak", pomodoroStyle: "primary", shortbreakStyle: "primary" , longbreakStyle: "success"},()=>{
+      this.props.onLongBreakClick();
+    });
+
   }
 
   handleTimerComplete(){
@@ -132,7 +139,7 @@ export default class Timer extends Component{
   }
 
   getTime(){
-    console.log("getting time");
+    //console.log("getting time");
     this.setState({
       timeDisplay: TimerStore.getTime()
     });
@@ -162,8 +169,9 @@ export default class Timer extends Component{
 
   componentWillReceiveProps(nextProps){
     console.log("timeDisplay Changing");
+    console.log(nextProps);
     this.setState({tasks: nextProps.tasks});
-      if(nextProps.minutes != this.props.minutes && nextProps.seconds != this.props.seconds){
+      if(nextProps.minutes != this.props.minutes || nextProps.seconds != this.props.seconds){
         this.setState(
           {
             timeDisplay: {
